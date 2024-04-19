@@ -11,7 +11,6 @@ const Footer = () => {
 
 export default Footer; // Provide a default export
 
-export { Footer }; // Also export Footer as a named export if needed
-
+export { Footer }; 
 
 
