@@ -1,7 +1,5 @@
 // services/userService.js
 
-import axios from 'axios';
-
 const BASE_URL = 'http://localhost:8088';
 
 export const getAllUsers = async () => {
@@ -14,9 +12,19 @@ export const getAllUsers = async () => {
   }
 };
 
-// TODO Part Of the Auth Setup
+// ? Part Of the Auth Setup
 export const getUserByEmail = (email) => {
-    return fetch(`http://localhost:8088/users?email=${email}`).then((res) =>
+    return fetch(`${BASE_URL}/users?email=${email}`).then((res) =>
       res.json()
     )
   }
+
+export const createUser = () => {
+  return fetch(`${BASE_URL}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(),
+  }).then((res) => res.json())
+}
