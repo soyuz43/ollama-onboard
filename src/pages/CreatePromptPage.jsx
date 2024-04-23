@@ -1,31 +1,73 @@
-// src/pages/CreatePromptPage.jsx
-import React from 'react';
+// * src/pages/CreatePromptPage.jsx
 
-export const CreatePromptPage = () => {
+import React, { useState, useEffect } from 'react';
+export const CreatePromptPage = ({ currentUser }) => {
+  const [categories, setCategories] = useState([]);
+  const [formData, setFormData] = useState({
+    userId: currentUser.id,                                           // * Use currentUser.id from the prop
+    categoryId: '',
+    title: '',
+    content: ''
+  });
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await fetch('http://localhost:8088/categories');
+      const data = await response.json();
+      setCategories(data);
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('http://localhost:8088/prompts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (!response.ok) throw new Error('Failed to create prompt');
+      alert('Prompt created successfully!');
+      // Optionally reset form or handle further
+    } catch (error) {
+      console.error('Error creating prompt:', error);
+      alert('Failed to create prompt');
+    }
+  };
+
   return (
-    <div>
-      <h1>Create New Prompt</h1>
-      <form>
-        <label>
-          Prompt Title:
-          <input type="text" name="title" />
+    <form onSubmit={handleSubmit}>
+      <h1>Create a New Prompt</h1>
+      <div>
+        <label>Title:
+          <input type="text" name="title" value={formData.title} onChange={handleInputChange} required />
         </label>
-        <label>
-          Prompt Description:
-          <textarea name="description" />
+      </div>
+      <div>
+        <label>Content:
+          <textarea name="content" value={formData.content} onChange={handleInputChange} required />
         </label>
-        <label>
-          Category:
-          <select name="category">
-            <option value="few-shot">Few-Shot</option>
-            <option value="zero-shot">Zero-Shot</option>
-            <option value="chain-of-thought">Chain of Thought</option>
+      </div>
+      <div>
+        <label>Category:
+          <select name="categoryId" value={formData.categoryId} onChange={handleInputChange} required>
+            <option value="">Select a Category</option>
+            {categories.map(category => (
+              <option key={category.category_id} value={category.category_id}>
+                {category.name}
+              </option>
+            ))}
           </select>
         </label>
-        <button type="submit">Create Prompt</button>
-      </form>
-    </div>
+      </div>
+      <button type="submit">Create Prompt</button>
+    </form>
   );
 };
-
-
