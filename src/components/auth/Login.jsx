@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import "./Login.css"
-import { getUserByEmail } from "../../services/userService.jsx"
+import { getUserByEmail } from "../../services/userService" 
+
 
 export const Login = () => {
   const [email, set] = useState("userone@example.com")
@@ -32,7 +33,7 @@ export const Login = () => {
     <main className="container-login">
       <section>
         <form className="form-login" onSubmit={handleLogin}>
-          <h1>Honey Rae Repairs</h1>
+          <h1>PhromptPro</h1>
           <h2>Please sign in</h2>
           <fieldset>
             <div className="form-group">
@@ -57,18 +58,6 @@ export const Login = () => {
         </form>
         <div>
       
-## Employee Emails
-<p>hpassfield7@netvibes.com</p>
-<p>fslator8@51.la</p>
-<p>rerbe9@psu.edu</p>
-<p>jeremy@bakker.com</p>
-
-
-
-## Customers Emails
-<p>wthorneloe1@usa.gov</p>
-<p>dstoade0@cornell.edu</p>
-<p>hphillpotts2@rakuten.co.jp</p>
 
         </div>
       </section>

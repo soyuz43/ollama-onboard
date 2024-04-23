@@ -1,34 +1,26 @@
 // src/App.jsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Header }  from './components/persistant/Header';
-import { Footer } from './components/persistant/Footer';
-import { HomePage } from './pages/HomePage';
-import { ProfilePage } from './pages/ProfilePage';
-import { PromptsPage } from './pages/PromptsPage';
-import { CategoriesPage } from './pages/CategoriesPage';
-import { EditPromptPage } from './pages/EditPromptPage';
-import { CreatePromptPage } from './pages/CreatePromptPage';
+import React from "react";
+import { Routes, Route, } from "react-router-dom";
 
-const App = () => {
+import { Register } from "./components/auth/Register";
+import { Login } from "./components/auth/Login";
+import { AppView } from "./views/ApplicationViews";
+import { Authorized } from "./views/Authorized";
+
+export const App = () => {
   return (
-    <Router>
-      <div className="app">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/prompts" element={<PromptsPage />} />
-            <Route path="/categories" element={<CategoriesPage />} />
-            <Route path="/edit-prompt/:id" element={<EditPromptPage />} />
-            <Route path="/create-prompt" element={<CreatePromptPage />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+
+      <Route
+        path="*"
+        element={
+          <Authorized>
+            <AppView />
+          </Authorized>
+        }
+      />
+    </Routes>
   );
 };
-
-export default App;
