@@ -1,6 +1,7 @@
+// src/pages/EditPromptPage.jsx
 import React from 'react';
 
-function EditPromptPage() {
+export const EditPromptPage = () => {
   return (
     <div>
       <h1>Edit Prompt</h1>
@@ -17,6 +18,5 @@ function EditPromptPage() {
       </form>
     </div>
   );
-}
+};
 
-export default EditPromptPage;

@@ -1,6 +1,7 @@
+// src/pages/CreatePromptPage.jsx
 import React from 'react';
 
-function CreatePromptPage() {
+export const CreatePromptPage = () => {
   return (
     <div>
       <h1>Create New Prompt</h1>
@@ -25,6 +26,6 @@ function CreatePromptPage() {
       </form>
     </div>
   );
-}
+};
 
-export default CreatePromptPage;
+

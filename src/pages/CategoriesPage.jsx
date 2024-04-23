@@ -1,7 +1,8 @@
+// src/pages/CategoriesPage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function CategoriesPage() {
+export const CategoriesPage = () => {
   return (
     <div>
       <h1>Prompt Categories</h1>
@@ -12,6 +13,6 @@ function CategoriesPage() {
       </div>
     </div>
   );
-}
+};
 
-export default CategoriesPage;
+
