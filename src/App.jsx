@@ -1,14 +1,14 @@
 // src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import ProfilePage from './pages/ProfilePage';
-import PromptsPage from './pages/PromptsPage';
-import CategoriesPage from './pages/CategoriesPage';
-import EditPromptPage from './pages/EditPromptPage';
-import CreatePromptPage from './pages/CreatePromptPage';
+import { Header }  from './components/persistant/Header';
+import { Footer } from './components/persistant/Footer';
+import { HomePage } from './pages/HomePage';
+import { ProfilePage } from './pages/ProfilePage';
+import { PromptsPage } from './pages/PromptsPage';
+import { CategoriesPage } from './pages/CategoriesPage';
+import { EditPromptPage } from './pages/EditPromptPage';
+import { CreatePromptPage } from './pages/CreatePromptPage';
 
 const App = () => {
   return (

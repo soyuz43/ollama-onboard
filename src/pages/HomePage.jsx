@@ -1,16 +1,27 @@
+// src/pages/HomePage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function HomePage() {
+export const HomePage = () => {
   return (
-    <div>
-      <h1>Welcome to MyFakeCelebrity!</h1>
-      <div>
+    <div className='overall-homepage'>
+      <h1 className='h1-homepage'>PromptPro</h1>
+
+      <div className='content-homepage'>
         <Link to="/prompts">View All Prompts</Link>
+      </div>
+
+      <div className='content-homepage'>       
         <Link to="/create-prompt">Create New Prompt</Link>
       </div>
-    </div>
-  );
-}
 
-export default HomePage;
+      <div className='content-homepage'>       
+        <Link to="/profile">Profile</Link>
+      </div>
+
+    </div>
+
+  );
+};
+
+

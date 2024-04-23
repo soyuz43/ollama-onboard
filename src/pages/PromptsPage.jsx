@@ -1,7 +1,8 @@
+// src/pages/PromptsPage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function PromptsPage() {
+export const PromptsPage = () => {
   return (
     <div>
       <h1>All Prompts</h1>
@@ -12,6 +13,4 @@ function PromptsPage() {
       </div>
     </div>
   );
-}
-
-export default PromptsPage;
+};

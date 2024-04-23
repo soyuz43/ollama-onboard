@@ -1,17 +1,11 @@
 // src/components/Footer.jsx
 import React from 'react';
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer>
       <p>© 2024 by soyuz. All rights reserved.</p>
     </footer>
   );
 };
-
-export default Footer; // Provide a default export
-
-export { Footer }; // Also export Footer as a named export if needed
-
-
 
