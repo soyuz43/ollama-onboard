@@ -10,24 +10,24 @@ export const Login = () => {
   const navigate = useNavigate()
 
   const handleLogin = (e) => {
-    e.preventDefault()
-
+    e.preventDefault();
+  
     getUserByEmail(email).then((foundUsers) => {
       if (foundUsers.length === 1) {
-        const user = foundUsers[0]
+        const user = foundUsers[0];
         localStorage.setItem(
           "prompPro_Token",
           JSON.stringify({
             id: user.id,
           })
-        )
-
-        navigate("/")
+        );
+  
+        navigate("/");
       } else {
-        window.alert("Invalid login")
+        window.alert("Invalid login");
       }
-    })
-  }
+    });
+  };
 
   return (
     <main className="container-login">

@@ -1,4 +1,5 @@
-// src/views/AppViews.jsx
+// * src/views/AppViews.jsx
+
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from '../components/persistant/Header';
@@ -11,6 +12,9 @@ import { EditPromptPage } from '../pages/EditPromptPage';
 import { CreatePromptPage } from '../pages/CreatePromptPage';
 
 export const AppView = () => {
+  // * Extract user ID from localStorage
+  const userId = JSON.parse(localStorage.getItem("prompPro_Token"))?.id;
+  
   return (
     <div className="app">
       <Header />
@@ -21,11 +25,10 @@ export const AppView = () => {
           <Route path="/prompts" element={<PromptsPage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/edit-prompt/:id" element={<EditPromptPage />} />
-          <Route path="/create-prompt" element={<CreatePromptPage />} />
+          <Route path="/create-prompt" element={<CreatePromptPage currentUser={{id: userId}} />} />
         </Routes>
       </main>
       <Footer />
     </div>
   );
 };
-

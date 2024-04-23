@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const HomePage = () => {
   return (
     <div className='overall-homepage'>
-      <h1 className='h1-homepage'>PromptPro</h1>
+      <h1 className='h1-homepage'>We meet agian...Let's Roll!</h1>
 
       <div className='content-homepage'>
         <Link to="/prompts">View All Prompts</Link>

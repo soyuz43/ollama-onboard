@@ -1,0 +1,46 @@
+/* src/components/navbar/navBar.css */
+
+.navbar {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 1rem;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--outline);
+  justify-content: flex-start;
+}
+
+.navbar-item {
+  margin: 0 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.navbar-item a {
+  text-decoration: none;
+  color: var(--dark);
+  font-family: "Roboto", sans-serif;
+  font-size: 2rem;
+}
+
+.navbar-item a:hover, .navbar-item a:focus {
+  background-color: var(--outline);
+  color: var(--white);
+}
+
+/* Additional styles for the logout button */
+.navbar-logout {
+  margin-left: auto;  /* Push the logout to the far right of the navbar */
+  background-color: var(--danger); /* Use a distinct background color to highlight its function */
+  border-radius: 0.5rem; /* Optional: Increase border-radius for visual impact */
+ 
+}
+
+.navbar-logout a {
+  color: var(--white); /* Ensure the text color contrasts well against the logout background */
+  font-style: italic;
+}
+
+.navbar-logout a:hover, .navbar-logout a:focus {
+  background-color: var(--danger-light); 
+};
