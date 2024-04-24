@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getAllPrompts } from '../services/promptService';
 import { getAllCategories } from '../services/categoryService'; // Adjust the import path as needed
 
-export const PromptsPage = ({ currentUserId }) => {
+export const PromptsPage = ({ currentUser }) => {
   const [prompts, setPrompts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -28,14 +28,22 @@ export const PromptsPage = ({ currentUserId }) => {
 
   // Filter prompts by selected category and show my prompts if selected
   const filteredPrompts = prompts.filter(prompt => {
-    const isMyPrompt = showMyPrompts ? prompt.user_id === currentUserId : true;
+    const isMyPrompt = showMyPrompts ? String(prompt.user_id) === String(currentUser) : true;
     const isCategoryMatch = selectedCategory === '' || prompt.category_id === parseInt(selectedCategory);
     return isMyPrompt && isCategoryMatch;
   });
 
   const handleMyPromptsChange = () => {
+    console.log('Before toggle:', showMyPrompts);
     setShowMyPrompts(!showMyPrompts);
+    console.log('After toggle:', !showMyPrompts);
+    console.log('Current User ID:', currentUser);
   };
+  
+  useEffect(() => {
+    console.log('Filtered Prompts:', filteredPrompts);
+  }, [filteredPrompts]);
+  
 
   return (
     <div>
@@ -63,7 +71,11 @@ export const PromptsPage = ({ currentUserId }) => {
           <div key={prompt.id}>
             <h2>{prompt.Title}</h2>
             <p>{prompt.content}</p>
-            <Link to={`/prompt/${prompt.id}`}>View Prompt</Link>
+            {prompt.user_id === currentUser ? (
+              <Link to={`/edit-prompt/${prompt.id}`}>Edit Prompt</Link>
+            ) : (
+              <Link to={`/prompt/${prompt.id}`}>View Prompt</Link>
+            )}
           </div>
         ))}
       </div>

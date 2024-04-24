@@ -1,6 +1,6 @@
 // * src/views/AppViews.jsx
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Header } from '../components/persistant/Header';
 import { Footer } from '../components/persistant/Footer';
@@ -12,9 +12,13 @@ import { EditPromptPage } from '../pages/EditPromptPage';
 import { CreatePromptPage } from '../pages/CreatePromptPage';
 
 export const AppView = () => {
-  // * Extract user ID from localStorage
-  const userId = JSON.parse(localStorage.getItem("prompPro_Token"))?.id;
-  
+  const [currentUserId, setCurrentUserId] = useState(null);
+
+  useEffect(() => {
+    const userId = JSON.parse(localStorage.getItem("prompPro_Token"))?.id;
+    setCurrentUserId(userId);
+  }, []);
+  console.log('appview User ID:', currentUserId);
   return (
     <div className="app">
       <Header />
@@ -22,10 +26,10 @@ export const AppView = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/prompts" element={<PromptsPage currentUser={{id: userId}}  />} />
+          <Route path="/prompts" element={<PromptsPage currentUser={currentUserId}  />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/edit-prompt/:id" element={<EditPromptPage />} />
-          <Route path="/create-prompt" element={<CreatePromptPage currentUser={{id: userId}} />} />
+          <Route path="/create-prompt" element={<CreatePromptPage currentUser={currentUserId} />} />
         </Routes>
       </main>
       <Footer />
