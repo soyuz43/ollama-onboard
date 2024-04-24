@@ -17,11 +17,9 @@ export const Login = () => {
         const user = foundUsers[0];
         localStorage.setItem(
           "prompPro_Token",
-          JSON.stringify({
-            id: user.id,
-          })
+          JSON.stringify({ id: user.id }) // Corrected here
         );
-  
+    
         navigate("/");
       } else {
         window.alert("Invalid login");

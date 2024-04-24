@@ -15,10 +15,10 @@ export const Register = (props) => {
     createUser(customer).then((createdUser) => {
       if (createdUser.hasOwnProperty("id")) {
         localStorage.setItem(
-          "honey_user",
+          "prompPro_Token",
           JSON.stringify({
-            id: createdUser.id,
-            staff: createdUser.isStaff,
+            id: createdUser.id
+            
           })
         )
 
