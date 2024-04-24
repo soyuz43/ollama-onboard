@@ -18,7 +18,7 @@ export const AppView = () => {
     const userId = JSON.parse(localStorage.getItem("prompPro_Token"))?.id;
     setCurrentUserId(userId);
   }, []);
-  console.log('appview User ID:', currentUserId);
+  
   return (
     <div className="app">
       <Header />
