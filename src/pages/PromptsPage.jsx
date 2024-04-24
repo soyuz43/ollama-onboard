@@ -28,7 +28,7 @@ export const PromptsPage = ({ currentUserId }) => {
 
   // Filter prompts by selected category and show my prompts if selected
   const filteredPrompts = prompts.filter(prompt => {
-    const isMyPrompt = showMyPrompts ? prompt.userId === currentUserId : true;
+    const isMyPrompt = showMyPrompts ? prompt.user_id === currentUserId : true;
     const isCategoryMatch = selectedCategory === '' || prompt.category_id === parseInt(selectedCategory);
     return isMyPrompt && isCategoryMatch;
   });
@@ -61,7 +61,7 @@ export const PromptsPage = ({ currentUserId }) => {
       <div>
         {filteredPrompts.map(prompt => (
           <div key={prompt.id}>
-            <h2>{prompt.title}</h2>
+            <h2>{prompt.Title}</h2>
             <p>{prompt.content}</p>
             <Link to={`/prompt/${prompt.id}`}>View Prompt</Link>
           </div>

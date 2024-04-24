@@ -1,0 +1,13 @@
+/* master.css */
+
+/* Import the font file from the fonts directory */
+@font-face {
+    font-family: 'Hurmit Nerd Font Mono';
+    src: url('../fonts/HurmitNerd/Mono/HurmitNerd-Mono.ttf') format('truetype'); /* Adjust the path as needed */
+  }
+  
+  /* Set the default font family for the entire document */
+  body {
+    font-family: 'Hurmit Nerd Font Mono', monospace; /* Use the Hurmit Nerd Font Mono or fallback to generic monospace */
+  }
+  
