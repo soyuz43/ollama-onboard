@@ -33,3 +33,15 @@ export const updatePrompt = async (id, promptData) => {
     // return updatedPromptData;
  
 };
+export const deletePrompt = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/prompts/${id}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete prompt');
+    }
+  } catch (error) {
+    console.error('Failed to delete prompt', error);
+  }
+};
