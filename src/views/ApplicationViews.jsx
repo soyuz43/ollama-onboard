@@ -22,7 +22,7 @@ export const AppView = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/prompts" element={<PromptsPage />} />
+          <Route path="/prompts" element={<PromptsPage currentUser={{id: userId}}  />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/edit-prompt/:id" element={<EditPromptPage />} />
           <Route path="/create-prompt" element={<CreatePromptPage currentUser={{id: userId}} />} />
