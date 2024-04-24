@@ -1,46 +1,39 @@
-/* src/components/navbar/navBar.css */
-
-.navbar {
+/* Filepath: /src/components/Header.css */
+header {
   display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 1rem;
-  background-color: var(--white);
-  border-bottom: 1px solid var(--outline);
-  justify-content: flex-start;
+  justify-content: space-between; /* Ensures the title and nav are spaced out */
+  align-items: center;
+  padding: 0 20px;
+  background-color: #333;
+  color: #fff;
+  position: fixed; /* Keeps the header at the top of the viewport */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensures it stretches across the width of the viewport */
+  z-index: 1000; /* Ensures it stays on top of other content */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional: adds shadow for better separation from the page content */
+}
+
+nav {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-item {
-  margin: 0 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  list-style-type: none; /* Removes bullet points from li elements */
+  margin-right: 20px; /* Adds spacing between the links */
+}
+
+.navbar-item:last-child {
+  margin-right: 0; /* Removes margin from the last item */
 }
 
 .navbar-item a {
+  color: white;
   text-decoration: none;
-  color: var(--dark);
-  font-family: "Roboto", sans-serif;
-  font-size: 2rem;
+  padding: 10px 15px;
 }
 
-.navbar-item a:hover, .navbar-item a:focus {
-  background-color: var(--outline);
-  color: var(--white);
+.navbar-item a:hover {
+  background-color: #555;
 }
-
-/* Additional styles for the logout button */
-.navbar-logout {
-  margin-left: auto;  /* Push the logout to the far right of the navbar */
-  background-color: var(--danger); /* Use a distinct background color to highlight its function */
-  border-radius: 0.5rem; /* Optional: Increase border-radius for visual impact */
- 
-}
-
-.navbar-logout a {
-  color: var(--white); /* Ensure the text color contrasts well against the logout background */
-  font-style: italic;
-}
-
-.navbar-logout a:hover, .navbar-logout a:focus {
-  background-color: var(--danger-light); 
-};

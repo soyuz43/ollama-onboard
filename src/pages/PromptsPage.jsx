@@ -3,7 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllPrompts } from '../services/promptService';
-import { getAllCategories } from '../services/categoryService'; // Adjust the import path as needed
+import { getAllCategories } from '../services/categoryService';
+import './pageStyles/PromptsPage.css';
+
 
 export const PromptsPage = ({ currentUser }) => {
   const [prompts, setPrompts] = useState([]);
@@ -46,39 +48,50 @@ export const PromptsPage = ({ currentUser }) => {
   
 
   return (
-    <div>
-      <h1>All Prompts</h1>
-      <div>
-        <label>
-          <input type="checkbox" onChange={handleMyPromptsChange} />
-          Show My Prompts
-        </label>
+    <div className="prompts-page-container">
+      <div className="prompts-header">
+        <h1 className="prompts-title">All Prompts</h1>
+        <div className="prompts-controls">
+          <label className="prompts-show-toggle">
+            <input type="checkbox" onChange={handleMyPromptsChange} />
+            Show My Prompts
+          </label>
+          <select
+            className="prompts-category-filter"
+            value={selectedCategory}
+            onChange={e => setSelectedCategory(e.target.value)}
+            aria-label="Filter prompts by category"
+          >
+            <option value="">All Categories</option>
+            {categories.map(category => (
+              <option key={category.category_id} value={category.category_id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
-      <select
-        value={selectedCategory}
-        onChange={e => setSelectedCategory(e.target.value)}
-        aria-label="Filter prompts by category"
-      >
-        <option value="">All Categories</option>
-        {categories.map(category => (
-          <option key={category.category_id} value={category.category_id}>
-            {category.name}
-          </option>
-        ))}
-      </select>
-      <div>
-        {filteredPrompts.map(prompt => (
-          <div key={prompt.id}>
-            <h2>{prompt.Title}</h2>
-            <p>{prompt.content}</p>
-            {prompt.user_id === currentUser ? (
-              <Link to={`/edit-prompt/${prompt.id}`}>Edit Prompt</Link>
-            ) : (
-              <Link to={`/prompt/${prompt.id}`}>View Prompt</Link>
-            )}
-          </div>
-        ))}
+      <div className="prompts-list-container">
+        <div className="prompts-list">
+          {filteredPrompts.map(prompt => (
+            <div key={prompt.id} className="prompt-item">
+              <h2 className="prompt-title">{prompt.title}</h2>
+              <p className="prompt-content">{prompt.content}</p>
+              <div className="prompt-actions">
+                <Link to={`/prompt/${prompt.id}`} className="prompt-view-link">View Prompt</Link>
+                {prompt.user_id === currentUser && (
+                  <Link to={`/edit-prompt/${prompt.id}`} className="prompt-edit-link">Edit Prompt</Link>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="prompts-page-actions">
+          <Link to="/create-prompt" className="create-prompt-link">Create New Prompt</Link>
+        </div>
       </div>
     </div>
   );
-};
+  
+  
+} 

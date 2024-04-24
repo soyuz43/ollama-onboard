@@ -8,6 +8,7 @@
   
   /* Set the default font family for the entire document */
   body {
-    font-family: 'Hurmit Nerd Font Mono', monospace; /* Use the Hurmit Nerd Font Mono or fallback to generic monospace */
+    font-family: 'Hurmit Nerd Font Mono', monospace;
+    padding-top: 60px /* Use the Hurmit Nerd Font Mono or fallback to generic monospace */
   }
   
