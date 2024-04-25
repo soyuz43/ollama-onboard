@@ -35,24 +35,20 @@ export const EditPromptPage = () => {
     setPrompt((prevPrompt) => ({ ...prevPrompt, [name]: value }));
     setIsDirty(true); // Mark as dirty if the user makes a change
   };
+// Modify the handleSubmit function in EditPromptPage.jsx
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isDirty) {
-      try {
-        const updatedPrompt = {
-          id,
-          user_id: originalPrompt.user_id,
-          title: prompt.title,
-          content: prompt.content,
-        };
-        await updatePrompt(id, updatedPrompt); // Pass id and updatedPrompt as separate arguments
-        // Optionally, redirect to a different page or show a success message
-      } catch (error) {
-        console.error('Failed to update prompt', error);
-      }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (isDirty) {
+    try {
+      await updatePrompt(id, { title: prompt.title, content: prompt.content });
+      navigate('/confirmation', { state: { message: "Your prompt has been updated successfully!" } });
+    } catch (error) {
+      console.error('Failed to update prompt', error);
     }
-  };
+  }
+};
+
 
   useEffect(() => {
     if (isDirty) {
@@ -66,14 +62,16 @@ export const EditPromptPage = () => {
     setShowConfirmDeleteButton(true);
   };
 
-  const handleConfirmDeleteClick = async () => {
-    try {
-      await deletePrompt(id);
-      navigate('/prompts', { replace: true }); // Redirect to /prompts
-    } catch (error) {
-      console.error('Failed to delete prompt', error);
-    }
-  };
+
+const handleConfirmDeleteClick = async () => {
+  try {
+    await deletePrompt(id);
+    navigate('/confirmation', { state: { message: "The prompt has been deleted successfully!" } });
+  } catch (error) {
+    console.error('Failed to delete prompt', error);
+  }
+};
+
 
 
   return (

@@ -1,7 +1,12 @@
 // * src/pages/CreatePromptPage.jsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
+import { useNavigate } from "react-router-dom";
+
+
+
 export const CreatePromptPage = ({ currentUser }) => {
+  const navigate = useNavigate()
   const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
     userId: currentUser.id, // * Use currentUser.id from the prop
@@ -25,26 +30,27 @@ export const CreatePromptPage = ({ currentUser }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8088/prompts", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) throw new Error("Failed to create prompt");
-      alert("Prompt created successfully!");
-      // * Reset form data after successful submission
+ // Modify the handleSubmit function in CreatePromptPage.jsx
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const response = await fetch("http://localhost:8088/prompts", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    if (!response.ok) throw new Error("Failed to create prompt");
+    navigate('/confirmation', { state: { message: "Your prompt has been created successfully!" } });
+  } catch (error) {
+    console.error("Error creating prompt:", error);
+    alert("Failed to create prompt");
       setFormData({
         userId: currentUser.id,
         categoryId: "",
         title: "",
         content: "",
-      });
-    } catch (error) {
-      console.error("Error creating prompt:", error);
-      alert("Failed to create prompt");
+      });   
     }
   };
 
