@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPromptById, updatePrompt, deletePrompt } from '../services/promptService';
 import { useNavigate } from 'react-router-dom';
+import './pageStyles/EditPromptPage.css';
 
 export const EditPromptPage = () => {
   const navigate = useNavigate();
@@ -78,15 +79,17 @@ return (
   <div className="edit-prompt-page-container">
     <div className="edit-prompt-header">
       <h1 className="edit-prompt-title">Edit Prompt</h1>
-      <button className="edit-prompt-button" onClick={handleDeleteClick}>Delete Prompt</button>
-      {showConfirmDeleteButton && (
-        <button className="edit-prompt-confirm-button" onClick={handleConfirmDeleteClick}>Confirm Delete</button>
-      )}
+      <div className="edit-prompt-side-space left-side">
+        <button className="edit-prompt-button" onClick={handleDeleteClick}>Delete Prompt</button>
+        {showConfirmDeleteButton && (
+          <button className="edit-prompt-confirm-button" onClick={handleConfirmDeleteClick}>Confirm Delete</button>
+        )}
+      </div>
     </div>
     {prompt ? (
       <form className="edit-prompt-form" onSubmit={handleSubmit}>
         <div className="edit-prompt-title-container">
-          <label className="edit-prompt-label" style={{justifyContent: 'flex-end'}}>
+          <label className="edit-prompt-label">
             Prompt Title:
             <input
               type="text"
@@ -99,17 +102,12 @@ return (
         </div>
         <div className="edit-prompt-content-area">
           <div className="edit-prompt-side-space left-side"></div>
-          <label className="edit-prompt-label">
-            Prompt Description:
-            <div className="edit-prompt-textarea">
-            <textarea
-              name="content"
-              className="edit-prompt-textarea"
-              value={prompt.content}
-              onChange={handleInputChange}
-            />
-            </div>
-          </label>
+          <textarea
+            name="content"
+            className="edit-prompt-textarea"
+            value={prompt.content}
+            onChange={handleInputChange}
+          />
           <div className="edit-prompt-side-space right-side"></div>
         </div>
         {showSaveButton && (
