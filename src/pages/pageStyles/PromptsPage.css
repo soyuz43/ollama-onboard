@@ -1,0 +1,80 @@
+/* Filepath: /src/pages/pageStyles/PromptsPage.css */
+
+.prompts-page-container {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--header-footer-height)); /* Adjust based on your header/footer height */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .prompts-header {
+    margin-bottom: 10px; /* Provides space between header and list */
+  }
+  
+  .prompts-title {
+    margin-bottom: 5px; /* Space between title and controls */
+  }
+  
+  .prompts-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Spacing between controls */
+  }
+  
+  .prompts-list-container {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden; /* Prevents internal content from spilling over */
+  }
+  
+  .prompts-list {
+    width: 70%;
+    overflow-y: auto; /* Adds scrollbar to the prompt list */
+    margin-right: 10px; /* Space between list and actions */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .prompt-item {
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .prompts-page-actions {
+    width: 30%;
+    align-self: flex-start; /* Aligns the button with the top of the list */
+  }
+  
+  .create-prompt-link {
+    width: 200px;  /* Fixed width */
+    height: 50px;  /* Fixed height */
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+  }
+  .prompt-actions {
+    display: flex;
+    justify-content: flex-start; /* Aligns the buttons to the left */
+    gap: 10px; /* Ensures there is space between the buttons */
+  }
+  
+  .prompt-view-link, .prompt-edit-link {
+    padding: 5px 10px; /* Adds padding around the text for better clickability */
+    background-color: #d8d5d5; /* Adds a background color for visibility */
+    border-radius: 5px; /* Rounds the corners of the buttons */
+    text-decoration: none; /* Removes underline from links */
+    color: #0054ae; /* Sets the text color */
+    margin-right: 10px; /* Adds right margin to the first link */
+  }
+  
+  .prompt-edit-link {
+    margin-right: 0; /* Removes the margin on the right for the last link if there are no elements after it */
+  }
+  
