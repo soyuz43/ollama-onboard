@@ -1,0 +1,78 @@
+.edit-prompt-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 80vh;
+    background-color: #f9f9f9;
+}
+.edit-prompt-page-container .edit-prompt-content-area .edit-prompt-textarea {
+    width: 800px;
+    height: 1200px;
+    resize: both;
+}
+
+.edit-prompt-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.edit-prompt-title {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: right;
+    flex-grow: 1;
+}
+
+.edit-prompt-button, .edit-prompt-confirm-button {
+    padding: 10px 20px;
+    margin-left: 10px;
+}
+
+.edit-prompt-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.edit-prompt-title-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.edit-prompt-content-area {
+    width: 800px;
+    height: 1200px;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.edit-prompt-side-space {
+    width: 100px; /* adjustable based on your design */
+}
+
+.edit-prompt-textarea {
+    width: 800px;
+    height: 1200px;
+    resize: both;
+    min-width: 400px;
+    min-height: 600px;
+}
+
+.edit-prompt-save-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.edit-prompt-loading {
+    color: #888;
+    font-style: italic;
+}

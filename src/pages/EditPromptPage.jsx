@@ -74,39 +74,53 @@ const handleConfirmDeleteClick = async () => {
 
 
 
-  return (
-    <div>
-      <h1>Edit Prompt</h1>
-      <button onClick={handleDeleteClick}>Delete Prompt</button>
+return (
+  <div className="edit-prompt-page-container">
+    <div className="edit-prompt-header">
+      <h1 className="edit-prompt-title">Edit Prompt</h1>
+      <button className="edit-prompt-button" onClick={handleDeleteClick}>Delete Prompt</button>
       {showConfirmDeleteButton && (
-        <button onClick={handleConfirmDeleteClick}>Confirm Delete</button>
+        <button className="edit-prompt-confirm-button" onClick={handleConfirmDeleteClick}>Confirm Delete</button>
       )}
-      {prompt ? (
-        <form onSubmit={handleSubmit}>
-          <label>
+    </div>
+    {prompt ? (
+      <form className="edit-prompt-form" onSubmit={handleSubmit}>
+        <div className="edit-prompt-title-container">
+          <label className="edit-prompt-label" style={{justifyContent: 'flex-end'}}>
             Prompt Title:
             <input
               type="text"
               name="title"
+              className="edit-prompt-input"
               value={prompt.title}
               onChange={handleInputChange}
             />
           </label>
-          <label>
+        </div>
+        <div className="edit-prompt-content-area">
+          <div className="edit-prompt-side-space left-side"></div>
+          <label className="edit-prompt-label">
             Prompt Description:
+            <div className="edit-prompt-textarea">
             <textarea
               name="content"
+              className="edit-prompt-textarea"
               value={prompt.content}
               onChange={handleInputChange}
             />
+            </div>
           </label>
-          {showSaveButton && (
-            <button type="submit">Save Changes</button>
-          )}
-        </form>
-      ) : (
-        <p>Loading...</p>
-      )}
-    </div>
-  );
+          <div className="edit-prompt-side-space right-side"></div>
+        </div>
+        {showSaveButton && (
+          <div className="edit-prompt-save-button-container">
+            <button type="submit" className="edit-prompt-save-button">Save Changes</button>
+          </div>
+        )}
+      </form>
+    ) : (
+      <p className="edit-prompt-loading">Loading...</p>
+    )}
+  </div>
+);
 };
