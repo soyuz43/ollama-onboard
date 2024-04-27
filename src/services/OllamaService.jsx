@@ -22,50 +22,42 @@ export const ollamaSendMessage = async (messages, onMessageReceived, onError) =>
             })
         });
 
-        // Check if the response is ok and ready to stream
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
-        // Handle the stream of JSON objects
         const reader = response.body.getReader();
-        const stream = new ReadableStream({
-            async start(controller) {
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) {
-                        controller.close();
-                        break;
-                    }
-                    controller.enqueue(value);
-                }
-            }
-        });
-
-        // Read the stream as text, then process each message
-        const resultStream = stream.pipeThrough(new TextDecoderStream());
-        const readerStream = resultStream.getReader();
-
         let partialData = '';
-        while (true) {
-            const { done, value } = await readerStream.read();
-            if (done) {
-                break;
-            }
 
-            const responses = (partialData + value).split('\n').filter(t => t);
-            for (const response of responses) {
-                try {
-                    const jsonResponse = JSON.parse(response);
-                    if (jsonResponse.done) {
-                        onMessageReceived(jsonResponse, true);
-                    } else {
-                        onMessageReceived(jsonResponse, false);
+        const processChunk = (chunk) => {
+            partialData += chunk;
+            try {
+                let lastNewlineIndex = partialData.lastIndexOf('\n');
+                if (lastNewlineIndex === -1) return;  // No new complete JSON object to process
+
+                const completeResponses = partialData.slice(0, lastNewlineIndex);
+                partialData = partialData.slice(lastNewlineIndex + 1);  // Save incomplete part for later
+
+                completeResponses.split('\n').forEach(responseText => {
+                    if (responseText) {
+                        const jsonResponse = JSON.parse(responseText);
+                        onMessageReceived(jsonResponse, jsonResponse.done);
                     }
-                } catch (e) {
-                    console.error("Error parsing JSON:", e);
-                }
+                });
+            } catch (error) {
+                console.error("Error parsing JSON:", error);
             }
+        };
+
+        while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            const textChunk = new TextDecoder("utf-8").decode(value, { stream: true });
+            processChunk(textChunk);
+        }
+        // Process any remaining partial data
+        if (partialData) {
+            processChunk('\n');  // Ensure the last chunk is processed if it was complete
         }
     } catch (error) {
         console.error('Failed to fetch data:', error);

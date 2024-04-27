@@ -16,13 +16,7 @@ export const EditPage = ({currentuserId}) => {
   
 
 
-  useEffect(() => {
-    const previousLocal = location.state?.from
-    // console.log(history)
-    console.log(previousLocal.pathname)
   
-  })
-
 
   useEffect(() => {
     const fetchPrompt = async () => {
