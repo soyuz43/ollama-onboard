@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import {  useLocation, useParams } from 'react-router-dom';
 import { getPromptById, updatePrompt, deletePrompt } from '../services/promptService';
 import { useNavigate } from 'react-router-dom';
 import './pageStyles/EditPromptPage.css';
 
-export const EditPromptPage = () => {
+export const EditPage = ({currentuserId}) => {
   const navigate = useNavigate();
   const { id } = useParams(); // Get the prompt id from the URL
   console.log('ID:', id);
@@ -13,6 +13,16 @@ export const EditPromptPage = () => {
   const [isDirty, setIsDirty] = useState(false); // Track if the user has made changes
   const [showSaveButton, setShowSaveButton] = useState(false); // Control the visibility of the Save Changes button
   const [showConfirmDeleteButton, setShowConfirmDeleteButton] = useState(false); // Control the visibility of the Confirm Delete button
+  
+
+
+  useEffect(() => {
+    const previousLocal = location.state?.from
+    // console.log(history)
+    console.log(previousLocal.pathname)
+  
+  })
+
 
   useEffect(() => {
     const fetchPrompt = async () => {

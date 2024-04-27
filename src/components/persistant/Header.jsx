@@ -13,7 +13,7 @@ export const Header = () => {
           <Link to="/">Home</Link>
         </li>
         <li className="navbar-item">
-          <Link to="/tickets">PLACEHOLDER</Link>
+          <Link to="/chat">Chat</Link>
         </li>
         
         {localStorage.getItem("prompPro_Token") ? (

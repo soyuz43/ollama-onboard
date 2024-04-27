@@ -6,7 +6,7 @@
     padding: 20px;
     color: #333; /* Soft, dark gray for text */
     background-color: #f4f4f9; /* Light grey background for a modern look */
-    min-height: 100vh; /* Full view height */
+    min-height: 80vh; /* Full view height */
 }
 
 .h1-homepage {

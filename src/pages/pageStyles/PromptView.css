@@ -1,0 +1,27 @@
+/* src/pageStyles/PromptView.css */
+.prompt-view {
+    max-width: 1300px; /* Adjust as needed */
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  
+  .title {
+    font-size: 38px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .content {
+    text-align: justify;
+
+    margin: 0 auto;
+    max-width: calc(100% - 20px); /* Adjust as needed */
+    overflow-wrap: break-word;
+    white-space: pre-line;
+  }
+  
+  .button {
+    display: block;
+    margin: 20px auto;
+  }
+  
