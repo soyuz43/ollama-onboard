@@ -5,9 +5,13 @@ export const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [inputKey, setInputKey] = useState(0);  // Initialize a key state
+
   const latestMessages = useRef(null);
   const ongoingAssistantMessage = useRef("");
   const textAreaRefs = useRef([]);
+  const messagesEndRef = useRef(null);
+
 
   latestMessages.current = messages;
 
@@ -15,6 +19,13 @@ export const ChatPage = () => {
     // Start the conversation with a greeting or system message if needed
     
   }, []);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+};
+
+useEffect(() => {
+    scrollToBottom();
+}, [messages]);  // Run this effect every time messages array changes
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -33,10 +44,11 @@ export const ChatPage = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     if (userInput.trim()) {
-      postMessage({ role: "user", content: userInput });
-      setUserInput("");
+        postMessage({ role: "user", content: userInput });
+        setUserInput("");  // Clear the input field
+        setInputKey(prevKey => prevKey + 1);  // Increment the key to force re-render
     }
-  };
+};
 
   const postMessage = async (message) => {
     const updatedMessages = [...latestMessages.current, message];
@@ -97,12 +109,14 @@ export const ChatPage = () => {
     <div>
       <h1>Chat with Ollama</h1>
       <div className="messages">
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
-            {msg.role}: <textarea value={msg.content} readOnly />
-          </div>
-        ))}
-      </div>
+    {messages.map((msg, index) => (
+        <div key={index} className={`message ${msg.role}`}>
+            {msg.role}: <textarea key={inputKey} value={msg.content} readOnly />
+        </div>
+    ))}
+    <div ref={messagesEndRef} />
+</div>
+
       <form onSubmit={handleFormSubmit}>
         <input
           type="text"

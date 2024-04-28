@@ -11,33 +11,30 @@ import { CreatePromptPage } from '../pages/CreatePromptPage';
 import { PromptView } from '../pages/prompts/PromptView';
 import { ConfirmationPage } from '../components/ConfirmationPage';
 import { ChatPage } from '../pages/chat/ChatPage';
+
 export const AppView = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
-  
- 
 
-  
   useEffect(() => {
+    // This hook simulates getting the current user ID from local storage.
     const userId = JSON.parse(localStorage.getItem("prompPro_Token"))?.id;
     setCurrentUserId(userId);
   }, []);
-  
+
   return (
-    <div className="app">
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage currentUserId={currentUserId} />} />
-          <Route path="/prompts" element={<PromptsPage currentUser={currentUserId} />} />
-          <Route path="/prompt/:id" element={<PromptView />} />
-          <Route path="/categories" element={<CategoriesPage />} />
-          <Route path="/edit-prompt/:id" element={<EditPage currentUserId={currentUserId} />} />
-          <Route path="/chat" element={<ChatPage />} />
-          <Route path="/create-prompt" element={<CreatePromptPage currentUser={currentUserId} />} />
-          <Route path="/confirmation" element={<ConfirmationPage />} />
-        </Routes>
-      </main>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage currentUserId={currentUserId} />} />
+        <Route path="/prompts" element={<PromptsPage currentUser={currentUserId} />} />
+        <Route path="/prompt/:id" element={<PromptView />} />
+        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/edit-prompt/:id" element={<EditPage currentUserId={currentUserId} />} />
+        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/create-prompt" element={<CreatePromptPage currentUser={currentUserId} />} />
+        <Route path="/confirmation" element={<ConfirmationPage />} />
+      </Routes>
       <Footer />
-    </div>
+    </>
   );
 };
