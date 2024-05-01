@@ -1,0 +1,35 @@
+/* /src/pages/pageStyles/HomePage.css */
+.overall-homepage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: #333; /* Soft, dark gray for text */
+    background-color: #f4f4f9; /* Light grey background for a modern look */
+    min-height: 80vh; /* Full view height */
+}
+
+.h1-homepage {
+  font-size: 2em; /* Larger font size for the main heading */
+  color: #333; /* Dark grey for text for readability */
+  margin-bottom: 20px; /* Space below the heading */
+}
+
+.content-homepage {
+  margin-bottom: 10px; /* Space between links */
+}
+
+.content-homepage a {
+  text-decoration: none;
+  color: #007BFF; /* Bootstrap's default link color for consistency */
+  font-size: 1.2em;
+  padding: 8px 16px; /* Padding for better touch target */
+  border: 1px solid #007BFF; /* Border to enhance the button-like appearance */
+  border-radius: 5px; /* Rounded corners for a modern look */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.content-homepage a:hover, .content-homepage a:focus {
+  background-color: #007BFF; /* Blue background on hover/focus */
+  color: white; /* White text on hover/focus */
+}

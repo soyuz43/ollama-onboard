@@ -1,7 +1,8 @@
-// src/pages/PromptView.jsx
+// src/pages/prompts/PromptView.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPromptById } from '../services/promptService';
+import { getPromptById } from '../../services/promptService';
+import '../pageStyles/PromptView.css'; // Import the CSS file
 
 export const PromptView = () => {
   const { id } = useParams();
@@ -15,10 +16,10 @@ export const PromptView = () => {
   }, [id]);
 
   return (
-    <div>
-      <h1>{prompt.title}</h1>
-      <p>{prompt.content}</p>
-      <button onClick={(e) => e.preventDefault()}>PLACEHOLDER</button>
+    <div className="prompt-view">
+      <h1 className="title">{prompt.title}</h1>
+      <p className="content">{prompt.content}</p>
+      <button className="button" onClick={(e) => e.preventDefault()}>PLACEHOLDER</button>
     </div>
   );
 };

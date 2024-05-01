@@ -3,7 +3,7 @@
 /* Import the font file from the fonts directory */
 @font-face {
     font-family: 'Hurmit Nerd Font Mono';
-    src: url('../fonts/HurmitNerd/Mono/HurmitNerd-Mono.ttf') format('truetype'); /* Adjust the path as needed */
+    src: url('../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-LightOblique.ttf') format('truetype'); /* Adjust the path as needed */
   }
   
   /* Set the default font family for the entire document */
@@ -11,4 +11,24 @@
     font-family: 'Hurmit Nerd Font Mono', monospace;
     padding-top: 60px /* Use the Hurmit Nerd Font Mono or fallback to generic monospace */
   }
-  
+
+
+/* /*
+
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-Oblique.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-BoldOblique.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-LightItalic.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-ExtraBoldItalic.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-MediumOblique.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-MediumItalic.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-LightOblique.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-BoldItalic.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-Regular.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-Italic.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-ExtraBold.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-ExtraBoldOblique.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-Light.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-Medium.ttf
+../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-Bold.ttf
+
+*/ 

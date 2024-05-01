@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getAllPrompts } from '../services/promptService';
-import { getAllCategories } from '../services/categoryService';
-import './pageStyles/PromptsPage.css';
+import { getAllPrompts } from '../../services/promptService';
+import { getAllCategories } from '../../services/categoryService';
+import '../pageStyles/PromptsPage.css';
 
 
 export const PromptsPage = ({ currentUser }) => {

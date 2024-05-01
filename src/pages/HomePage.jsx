@@ -1,6 +1,7 @@
 // src/pages/HomePage.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './pageStyles/HomePage.css'
 
 export const HomePage = () => {
   return (

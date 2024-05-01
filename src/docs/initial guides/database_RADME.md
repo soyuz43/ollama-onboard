@@ -30,7 +30,7 @@ This table contains the prompts created by users, categorized under the categori
 - **id** (int, primary key, auto-increment): Unique identifier for each prompt.
 - **user_id** (int, foreign key referencing `users.user_id`): The identifier of the user who created the prompt.
 - **category_id** (int, foreign key referencing `categories.category_id`): The identifier of the category to which the prompt belongs.
-- **Title** (varchar): The title of the prompt.
+- **title** (varchar): The title of the prompt.
 - **content** (text): The detailed content of the prompt.
 - **created_at** (timestamp): The date and time when the prompt was created.
 - **updated_at** (timestamp): The date and time when the prompt was last updated.
