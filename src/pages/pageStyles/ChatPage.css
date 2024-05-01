@@ -58,7 +58,7 @@ form {
 .message textarea {
     width: 100%;
  
-    resize: none;
+    resize: vertical;
     border: none;
     background: none;
     color: inherit;

@@ -5,7 +5,7 @@ export const ChatPage = () => {
     const [messages, setMessages] = useState([]);                   // #  Stores all chat messages
     const [userInput, setUserInput] = useState("");                 // #  Tracks user's text input
     const [isLoading, setIsLoading] = useState(false);              // #  Indicates loading status
-    const [inputKey, setInputKey] = useState(0);                    // #  Key for forcing re-renders
+    const [inputKey, setInputKey] = useState(null);                    // #  Key for forcing re-renders
     const [textareaSizes, setTextareaSizes] = useState({});         // #  Manages dynamic textarea sizes
     const [resizeInfo, setResizeInfo] = useState({                  // #  Stores resizing information
       isResizing: false,
@@ -67,12 +67,12 @@ export const ChatPage = () => {
   };
 
   const startResizing = (index, event) => {
+    event.preventDefault();
     setResizeInfo({
       isResizing: true,
       currentHeight: textareaSizes[index] || 100,
       indexBeingResized: index,
     });
-    event.preventDefault();
   };
 
   const stopResizing = () => {
@@ -96,6 +96,7 @@ export const ChatPage = () => {
   };
 
   const postMessage = async (message) => {
+   
     const updatedMessages = [...latestMessages.current, message];                   // *  the current list of messages & updates state so UI reflects the latest chat history.
     setMessages(updatedMessages);
   
@@ -161,9 +162,10 @@ export const ChatPage = () => {
     <div className="chat-container">
       <div className="messages" ref={messagesEndRef}>
         {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
+          <div className={`message ${msg.role}`}>
             {msg.role}: 
             <textarea
+              key={index}
               value={msg.content}
               style={{ height: `${textareaSizes[index] || 100}px` }}
             />
