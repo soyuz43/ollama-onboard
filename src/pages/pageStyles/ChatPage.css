@@ -1,9 +1,9 @@
+/* /src/pages/pageStyles/ChatPage.css */
 h1 {
     margin-top: 70px; /* Adjust based on your header's height */
     text-align: center;
     z-index: 1001; /* Ensure it's above the header if overlapping issues occur */
 }
-
 
 body {
     display: flex;
@@ -20,70 +20,71 @@ body {
 }
 
 .messages {
-    width: 95vw;  /* Adjust width to fit the viewport width */
-    height: 90vh; /* Adjust height to fit the viewport height, reduce if the header overlaps */
+    width: 95vw; /* Adjust width to fit the viewport width */
+    height: calc(90vh - 70px); /* Reduce height to prevent overlap with the input form */
     display: flex;
-    flex-direction: row; /* Align messages horizontally */
-    flex-wrap: nowrap;  /* Prevent wrapping to a new line */
-    overflow-x: auto; /* Enable horizontal scrolling if messages exceed the width */
+    flex-direction: column; /* Change to vertical stacking for messages */
+    overflow-y: auto; /* Enable vertical scrolling */
     padding: 10px;
     border: 2px solid #444;
     border-radius: 10px;
     background-color: #444;
     box-shadow: 0 0 10px rgba(66, 20, 64, 0.5);
-    position: fixed; /* Keep the chat window fixed */
-    bottom: 10px; /* Positioning from the bottom */
-    left: 50%;
-    transform: translateX(-50%);
+    margin-bottom: 80px; /* Space for the input form */
 }
 
 form {
-    width: 90%; /* Match the width of the chat messages */
+    width: 95vw; /* Match the width of the chat messages */
     max-width: 800px; /* Keep the form width consistent with the message box */
-    position: relative; /* Position relative to the normal flow */
-    bottom: 0; /* Align it at the bottom of its container */
+    position: fixed; /* Keep the form fixed at the bottom */
+    bottom: 10px; /* Position from the bottom */
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
 }
 
-
 .message {
     min-width: 200px; /* Minimum width for each message */
     padding: 10px;
-    border-right: 1px solid #555; /* Separator between messages */
+    border-bottom: 1px solid #555; /* Separator between messages */
     color: inherit;
-    white-space: nowrap; /* Ensure the text does not wrap */
+    white-space: normal; /* Allow text wrapping */
 }
 
-
 .message:last-child {
-    border-right: none;
+    border-bottom: none;
 }
 
 .message textarea {
     width: 100%;
-    height: 100%; /* Make textarea take full height of the message container */
+ 
     resize: none;
     border: none;
     background: none;
     color: inherit;
     font-family: inherit;
-    overflow: hidden; /* Hide overflow text */
+    overflow: auto; /* Hide overflow text */
 }
 
 .message.assistant {
     color: rgb(0, 163, 87);
+}
+.message button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.textarea {
+    transition: height 0.3s ease;
 }
 
 .message.user {
     color: #f00;
 }
 
-
-
 input[type="text"] {
-    width: 500px;
+    width: calc(100% - 120px); /* Adjust width to leave space for the button */
     height: 50px;
     padding: 10px;
     font-size: 18px;
@@ -97,15 +98,27 @@ input[type="text"]:focus {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
+.resize-handle {
+    cursor: ns-resize;
+    display: block;
+    width: 20%;
+    height: 10px;
+    background-color: #ccc;
+    text-align: center;
+    line-height: 10px;
+    user-select: none; 
+}
+
 button[type="submit"] {
     width: 100px;
-    height: 40px;
+    height: 50px; /* Match the height of the input field */
     font-size: 18px;
     background-color: #4CAF50;
     color: #fff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    margin-left: 10px; /* Space between the input field and button */
 }
 
 button[type="submit"]:hover {
@@ -118,7 +131,7 @@ button[type="submit"]:disabled {
 }
 
 p.loading {
-    position: absolute;
+    position: fixed; /* Ensure loading indicator stays visible */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
