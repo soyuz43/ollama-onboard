@@ -12,6 +12,16 @@ header {
   width: 100%; /* Ensures it stretches across the width of the viewport */
   z-index: 1000; /* Ensures it stays on top of other content */
   box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional: adds shadow for better separation from the page content */
+  max-height: 50px; /* Maximum height specified */
+}
+/* Styling for the h1 element within the header */
+.header-home-link {
+  font-size: 24px; /* Sets the size of the font */
+  margin: 0; /* Removes any default margin */
+  flex-grow: 1; /* Allows the title to take up any extra space */
+  overflow: hidden; /* Prevents overflow of the content */
+  white-space: nowrap; /* Prevents the text from wrapping */
+  text-overflow: ellipsis; /* Adds an ellipsis if the text is too long */
 }
 
 nav {
@@ -22,6 +32,7 @@ nav {
 .navbar-item {
   list-style-type: none; /* Removes bullet points from li elements */
   margin-right: 20px; /* Adds spacing between the links */
+  transition: transform 0.3s ease; /* Smooth transition for scaling effect */
 }
 
 .navbar-item:last-child {
@@ -36,4 +47,6 @@ nav {
 
 .navbar-item a:hover {
   background-color: #555;
+  transform: scale(3); /* Increases the size to 3 times on hover */
+  padding: 10px 15px; /* Keeps padding the same to avoid layout shift */
 }

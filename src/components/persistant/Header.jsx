@@ -7,7 +7,7 @@ export const Header = () => {
 
   return (
     <header>
-      <h1><Link to="/">PromptPro</Link></h1>
+      <h1 className='header-home-link'><Link to="/">PromptPro</Link></h1>
       <nav>
         <li className="navbar-item">
           <Link to="/">Home</Link>

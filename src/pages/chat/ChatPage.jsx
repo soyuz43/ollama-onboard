@@ -19,12 +19,13 @@ export const ChatPage = () => {
     // Start the conversation with a greeting or system message if needed
     
   }, []);
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  const scrollToRight = () => {
+    // Assuming 'messagesEndRef' is the ref to the last message element
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "end" });
 };
 
 useEffect(() => {
-    scrollToBottom();
+  scrollToRight();
 }, [messages]);  // Run this effect every time messages array changes
 
   const handleInputChange = (event) => {

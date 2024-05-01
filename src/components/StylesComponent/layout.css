@@ -1,0 +1,4 @@
+.main-content {
+    padding-top: 60px; /* Adjust this value based on the actual height of your header */
+    transition: padding-top 0.3s ease; /* Smooth transition if you change padding dynamically */
+  }

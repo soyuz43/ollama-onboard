@@ -1,4 +1,4 @@
-Below are Mermaid diagrams depicting the sequence and interactions for different aspects of the PromptPro application, including the creation, editing, and viewing of prompts, as well as profile management and chat functionalities.
+~Below are Mermaid diagrams depicting the sequence and interactions for different aspects of the PromptPro application, including the creation, editing, and viewing of prompts, as well as profile management and chat functionalities.
 
 
 ## Login Process Sequence
