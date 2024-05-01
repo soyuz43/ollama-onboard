@@ -22,10 +22,12 @@ export const ChatPage = () => {
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollTop = 0; // Always scroll to the 'bottom' which is now the top
+      const { scrollHeight, clientHeight, scrollTop } = messagesEndRef.current;
+      if (scrollHeight - scrollTop === clientHeight) {
+        messagesEndRef.current.scrollTop = scrollHeight;
+      }
     }
   };
-  
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -106,9 +108,7 @@ export const ChatPage = () => {
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.role}`}>
             {msg.role}:
-            <textarea readOnly  value={msg.content} 
-            rows={Math.max(1, Math.floor(msg.content.split('\n').length * 1.5))} // adjust the rows based on the number of newlines
-            /> 
+            <textarea readOnly value={msg.content} />
           </div>
         ))}
       </div>

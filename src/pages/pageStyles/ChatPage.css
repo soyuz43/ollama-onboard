@@ -1,183 +1,108 @@
-/* /src/pages/pageStyles/ChatPage.css */
-h1 {
-    margin-top: 70px; /* Adjust based on your header's height */
-    text-align: center;
-    z-index: 1001; /* Ensure it's above the header if overlapping issues occur */
-}
-
 body {
-    display: flex;
-    flex-direction: column; /* Change the main axis to vertical */
-    align-items: center;
-    justify-content: flex-start; /* Start aligning items from the top */
-    height: 100vh;
-    margin: 0;
-    padding-top: 60px; /* Add padding to the top equivalent to the header height */
-    background-color: #333;
-    color: #fff;
     font-family: Arial, sans-serif;
-    transition: background-color 0.5s ease;
-}
-
-.messages {
-    width: 95vw; /* Adjust width to fit the viewport width */
-    height: calc(90vh - 70px); /* Reduce height to prevent overlap with the input form */
-    display: flex;
-    flex-direction: column; /* Change to vertical stacking for messages */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 10px;
-    border: 2px solid #444;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  
+  .messages {
+    width: 95vw;
+    max-height: calc(90vh - 70px - 80px);
+    overflow-y: auto;
+    padding: 20px;
     border-radius: 10px;
-    background-color: #444;
-    box-shadow: 0 0 10px rgba(66, 20, 64, 0.5);
-    margin-bottom: 80px; /* Space for the input form */
-}
-
-form {
-    width: 95vw; /* Match the width of the chat messages */
-    max-width: 800px; /* Keep the form width consistent with the message box */
-    position: fixed; /* Keep the form fixed at the bottom */
-    bottom: 10px; /* Position from the bottom */
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-}
-
-.message {
-    min-width: 200px; /* Minimum width for each message */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+  }
+  
+  .message {
+    display: flex;
+    gap: 10px;
+    overflow-y: auto;
     padding: 10px;
-    border-bottom: 1px solid #555; /* Separator between messages */
-    color: inherit;
-    white-space: normal; /* Allow text wrapping */
-}
-
-.message:last-child {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .message:last-child {
     border-bottom: none;
-}
-
-.message textarea {
+  }
+  
+  .message textarea {
     width: 100%;
- 
+    overflow-y: auto;
     resize: vertical;
-    border: none;
-    background: none;
-    color: inherit;
-    font-family: inherit;
-    overflow: auto; /* Hide overflow text */
-}
-
-.message.assistant {
-    color: rgb(0, 163, 87);
-}
-.message button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    font-size: 12px;
-}
-
-.textarea {
-    transition: height 0.3s ease;
-}
-
-.message.user {
-    color: #f00;
-}
-
-input[type="text"] {
-    width: calc(100% - 120px); /* Adjust width to leave space for the button */
-    height: 50px;
     padding: 10px;
-    font-size: 18px;
+    font-size: 12px;
     border: none;
-    border-radius: 1px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-input[type="text"]:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
-}
-
-.resize-handle {
-    cursor: ns-resize;
-    display: block;
-    width: 20%;
-    height: 10px;
-    background-color: #ccc;
-    text-align: center;
-    line-height: 10px;
-    user-select: none; 
-}
-
-button[type="submit"] {
-    width: 100px;
-    height: 50px; /* Match the height of the input field */
-    font-size: 18px;
-    background-color: #4CAF50;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+  }
+  
+  .message.assistant {
+    min-height: 40px;
+    color: #337ab7;
+  }
+  
+  .message.user {
+    color: #e74c3c;
+  }
+  
+  form {
+    width: 95vw;
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #337ab7;
     color: #fff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    margin-left: 10px; /* Space between the input field and button */
-}
-
-button[type="submit"]:hover {
-    background-color: #3e8e41;
-}
-
-button[type="submit"]:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-p.loading {
-    position: fixed; /* Ensure loading indicator stays visible */
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #23527c;
+  }
+  
+  p.loading {
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 24px;
-    color: #ebe3e3;
+    color: #333;
     text-align: center;
     animation: pulse 1s ease-in-out infinite;
-}
-
-@keyframes pulse {
+  }
+  
+  @keyframes pulse {
     0% {
-        transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, -50%) scale(1);
     }
     50% {
-        transform: translate(-50%, -50%) scale(1.1);
+      transform: translate(-50%, -50%) scale(1.1);
     }
     100% {
-        transform: translate(-50%, -50%) scale(1);
+      transform: translate(-50%, -50%) scale(1);
     }
-}
-
-/* Dark mode */
-
-body.dark-mode {
-    background-color: #181717;
-}
-
-body.dark-mode .messages {
-    background-color: #fff;
-    color: #333;
-    border-color: #ddd;
-}
-
-body.dark-mode .message.assistant {
-    color: #00f;
-}
-
-body.dark-mode .message.user {
-    color: #f00;
-}
-
-body.dark-mode button[type="submit"] {
-    background-color: #181717;
-    color: #1394c7;
-}
-
-body.dark-mode button[type="submit"]:hover {
-    background-color: #444;
-}
+  }
