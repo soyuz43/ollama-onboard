@@ -19,13 +19,13 @@ export const ChatPage = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
   const scrollToBottom = () => {
+    // Reference to the end of the messages container
     if (messagesEndRef.current) {
-      messagesEndRef.current.scrollTop = 0; // Always scroll to the 'bottom' which is now the top
+      // Since the flex-direction is column-reverse, we want to set the scrollTop to 0 to stay at the bottom
+      messagesEndRef.current.scrollTop = 0;
     }
   };
-  
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -102,17 +102,39 @@ export const ChatPage = () => {
 
   return (
     <div className="chat-container">
-      <div className="messages" ref={messagesEndRef}>
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
-            {msg.role}:
-            <textarea readOnly  value={msg.content} 
-            rows={Math.max(1, Math.floor(msg.content.split('\n').length * 1.5))} // adjust the rows based on the number of newlines
-            /> 
-          </div>
-        ))}
+      <div className="messages-wrapper">
+        <div
+          className="messages"
+          ref={messagesEndRef}
+          style={{ overflowY: "auto", height: "calc(100vh - 80px)" }}
+        >
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.role}`}>
+              {msg.role}:
+              <textarea
+                readOnly
+                value={msg.content}
+                rows={1}
+                style={{
+                  height: `${msg.content.split("\n").length * 20}px`,
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-      <form onSubmit={handleFormSubmit} className="message-input">
+      <form
+        onSubmit={handleFormSubmit}
+        className="message-input"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          padding: "20px",
+          boxSizing: "border-box",
+          backgroundColor: "#fff",
+        }}
+      >
         <input
           type="text"
           value={userInput}
@@ -124,7 +146,7 @@ export const ChatPage = () => {
           Send
         </button>
       </form>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p className="loading">Loading...</p>}
     </div>
   );
 };
