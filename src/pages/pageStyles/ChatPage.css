@@ -1,32 +1,26 @@
-.chat-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  .chat-container {
+    position: fixed; /* Make the container fixed */
+    bottom: 100px; /* Anchor to the bottom */
+    top: 30px;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Precise horizontal centering */
+    width: 1000px; /* Fixed width, or make it responsive as per your design */
+    margin: 0; /* Remove margin to align properly at the bottom */
+    padding: 10px; /* Adjust padding */
+    background-color: #5d5d5d;
+    border: 2px solid #ffffff;
+    border-radius: 0; /* Remove rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: auto; /* Height should be auto to contain its children */
+    overflow: auto; /* Hide overflow */
+    z-index: 1000; /* Ensure it's above other content */
+  }
 
 .messages-wrapper {
-  position: fixed;
-  display: flex;
-  flex-direction: column-reverse;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 1200px;
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f7f7f7;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow-x: hidden;
-  
-  max-height: calc(100vh - 150px);
-  
+  max-height: calc(100vh - 150px); /* Adjust height to not overlap with the input */
+  overflow-y: auto; /* Enable scrolling for overflow */
+  padding: 10px 20px; /* Reduced padding */
+  border-radius: 0; /* Sharp corners */
 }
 .messages {
   padding: 20px;
@@ -48,41 +42,59 @@
   width: 100%;
   padding: 10px;
   border: none;
-  border-radius: 10px;
+  border-radius: 0px;
   resize: vertical;
-  font-size: 16px;
-  overflow-y: hidden; /* Add this to prevent scrollbar */
-  height: calc(100% + 12px);
+  font-size: 14px;
+  overflow-y: auto; /* Add this to prevent scrollbar */
+  height: calc(110% + 30px);
 }
 div.messages.assistant {
   height: fit-content;
   
 }
-
+.message.assistant textarea {
+  border-radius: 0; /* Sharp corners */
+  font-family: 'Courier New', Courier, monospace; /* NeoVIM-like monospaced font */
+  background-color: #f0f0f0; /* Slightly darker background for contrast */
+  color: #073642; /* A color that's easy on the eyes, typical of coding environments */
+  height: auto; /* Auto height initially */
+  max-height: 500px; /* Max height to avoid extending too far */
+  overflow-y: auto; /* Allow scrolling within the textarea */
+  resize: none; /* Disable resizing to maintain a consistent UI */
+}
 
 .message textarea:focus {
   height: initial; /* Add this to allow textarea to grow */
   padding-bottom: 20px; /* Add this to add space for the text */
 }
 .message-input {
-  background-color: #fff;
-  padding: 20px;
-  border-top: 1px solid #ddd;
+  position: fixed; /* Fix position to bottom of viewport */
+  bottom: sticky; /* Align bottom */
+  left: 30%; /* Center horizontally */
+  transform: translateX(-50%); /* Precise horizontal centering */
+  width: 800px; /* Match width with chat container */
+  height: 70px; /* Fixed height for input area */
+  background-color: #807f7f;
+  border: 1px solid #ddd;
+  padding: 0px; /* Remove padding */
+  display: flex; /* Flex display to align children inline */
+  box-sizing: border-box; /* Include padding and border in the width */
 }
 
 .message-input input[type="text"] {
-  padding: 10px;
+  flex: 1; /* Take remaining space */
+  padding: 10px; /* Padding inside input */
   font-size: 16px;
   border: none;
-  border-radius: 10px;
-  width: 75%;
+  border-radius: 0; /* Sharp corners */
 }
 
 .message-input button[type="submit"] {
+  width: 20%; /* Button width */
   padding: 10px 20px;
   font-size: 16px;
   border: none;
-  border-radius: 10px;
+  border-radius: 0; /* Sharp corners */
   background-color: #4CAF50;
   color: #fff;
   cursor: pointer;
@@ -94,8 +106,10 @@ div.messages.assistant {
 }
 
 .loading {
+  position: absolute; /* Position loading in the center of the input area */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Precise centering */
   font-size: 16px;
   color: #666;
-  text-align: center;
-  padding: 20px;
 }

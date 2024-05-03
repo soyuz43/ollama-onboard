@@ -11,6 +11,7 @@ import { CreatePromptPage } from '../pages/CreatePromptPage';
 import { PromptView } from '../pages/prompts/PromptView';
 import { ConfirmationPage } from '../components/ConfirmationPage';
 import { ChatPage } from '../pages/chat/ChatPage';
+import { ModelList }  from '../pages/chat/ModelList';
 
 export const AppView = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -31,6 +32,7 @@ export const AppView = () => {
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/edit-prompt/:id" element={<EditPage currentUserId={currentUserId} />} />
         <Route path="/chat" element={<ChatPage />} />
+        <Route path="/models" element={<ModelList />} />
         <Route path="/create-prompt" element={<CreatePromptPage currentUser={currentUserId} />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
       </Routes>

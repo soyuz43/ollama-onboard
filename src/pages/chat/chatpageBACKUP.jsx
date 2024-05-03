@@ -104,15 +104,39 @@ export const ChatPage = () => {
 
   return (
     <div className="chat-container">
-      <div className="messages" ref={messagesEndRef}>
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.role}`}>
-            {msg.role}:
-            <textarea readOnly value={msg.content} />
-          </div>
-        ))}
+      <div className="messages-wrapper">
+        <div
+          className="messages"
+          ref={messagesEndRef}
+          style={{ overflowY: "auto", height: "calc(100vh - 80px)" }}
+        >
+          {messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.role}`}>
+              {msg.role}:
+              <textarea
+                readOnly
+                value={msg.content}
+                rows={1}
+                style={{
+                  height: `${msg.content.split("\n").length * 20}px`,
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-      <form onSubmit={handleFormSubmit} className="message-input">
+      <form
+        onSubmit={handleFormSubmit}
+        className="message-input"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          padding: "20px",
+          boxSizing: "border-box",
+          backgroundColor: "#fff",
+        }}
+      >
         <input
           type="text"
           value={userInput}
@@ -124,9 +148,10 @@ export const ChatPage = () => {
           Send
         </button>
       </form>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <p className="loading">Loading...</p>}
     </div>
   );
 };
 
 export default ChatPage;
+
