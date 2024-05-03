@@ -11,7 +11,7 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/*" element={<Layout />}>
           {/* Index route directly rendering AppView */}
           <Route index element={<Authorized><AppView /></Authorized>} />
 

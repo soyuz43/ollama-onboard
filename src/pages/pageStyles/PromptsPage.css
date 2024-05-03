@@ -1,80 +1,105 @@
-/* Filepath: /src/pages/pageStyles/PromptsPage.css */
+/* PromptsPage.css */
 
+/* General container styling for the sidebar */
 .prompts-page-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - var(--header-footer-height)); /* Adjust based on your header/footer height */
-    padding: 20px;
-    box-sizing: border-box;
+  background-color: #f7f7f7;  /* Light gray background to differentiate the sidebar */
+  width: 700px;               /* Set a fixed width for the sidebar */
+  height: 100vh;              /* Sidebar height to fill the vertical space */
+  overflow-y: auto;           /* Allow scrolling within the sidebar */
+  border-right: 1px solid #ccc; /* Subtle border to separate from the chat container */
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1); /* Slight shadow on the right to create depth */
+}
+
+/* Header styling within the sidebar */
+.prompts-header {
+  padding: 20px;              /* Spacious padding for aesthetic purposes */
+  background-color: #fff;     /* White background for the header */
+  border-bottom: 1px solid #ececec; /* Light border to separate header from content */
+}
+
+.prompts-title {
+  margin: 0;                  /* Remove default margin */
+  color: #333;                /* Darker text for better readability */
+  font-size: 18px;            /* Appropriately large font size for visibility */
+}
+
+/* Controls container within the header */
+.prompts-controls {
+  display: flex;              /* Flexbox for alignment of controls */
+  align-items: center;        /* Align items in a line */
+  justify-content: space-between; /* Distribute space between controls */
+  padding-top: 10px;          /* Top padding to separate from title */
+}
+
+/* Styling for checkboxes and selections */
+.prompts-show-toggle,
+.prompts-category-filter {
+  margin-right: 10px;         /* Right margin for spacing between controls */
+}
+
+.prompts-category-filter {
+  padding: 5px 10px;          /* Padding for ease of use */
+  background-color: #fff;     /* White background to stand out */
+  border: 1px solid #ddd;     /* Subtle border for definition */
+  border-radius: 4px;         /* Rounded corners for modern look */
+}
+
+/* Search input styling */
+.search-input {
+  flex-grow: 1;               /* Allow search input to fill available space */
+  padding: 8px 10px;          /* Padding for text comfort */
+  border: 1px solid #ddd;     /* Consistent border styling */
+  border-radius: 4px;         /* Rounded corners */
+}
+
+/* Container for individual prompt items */
+.prompts-list-container {
+  padding: 10px;              /* Padding within the sidebar for spacing */
+}
+
+/* Individual prompt item styling */
+.prompt-item {
+  background-color: #fff;     /* White background for each item */
+  padding: 10px;              /* Padding around content */
+  margin-bottom: 10px;        /* Margin at the bottom of each item */
+  border-radius: 4px;         /* Rounded corners for each item */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Light shadow for depth */
+}
+
+.prompt-title {
+  font-size: 16px;            /* Size of the title in each prompt */
+  color: #333;                /* Dark color for readability */
+}
+
+.prompt-content {
+  font-size: 14px;            /* Smaller font size for content */
+  color: #666;                /* Lighter color for less emphasis */
+}
+
+/* Links and actions */
+.prompt-view-link,
+.prompt-edit-link {
+  text-decoration: none;      /* No underline */
+  color: #007bff;             /* Bootstrap's default blue */
+  margin-right: 10px;         /* Space between links */
+}
+
+.create-prompt-link {
+  display: block;             /* Block display for better control */
+  margin-top: 10px;           /* Space on top */
+  text-align: center;         /* Center align link */
+  background-color: #28a745;  /* Green background for creation link */
+  color: white;               /* White text for contrast */
+  padding: 10px;              /* Padding for appearance */
+  border-radius: 4px;         /* Rounded corners for the link */
+}
+
+/* Add responsive behavior if needed */
+@media (max-width: 908px) {
+  .prompts-page-container {
+    width: 100%;               /* Full width on smaller screens */
+    height: auto;              /* Auto height for better adaptability */
+    position: fixed;           /* Fixed to avoid being pushed by other elements */
+    z-index: 1000;             /* Ensure it's on top of other content */
   }
-  
-  .prompts-header {
-    margin-bottom: 10px; /* Provides space between header and list */
-  }
-  
-  .prompts-title {
-    margin-bottom: 5px; /* Space between title and controls */
-  }
-  
-  .prompts-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px; /* Spacing between controls */
-  }
-  
-  .prompts-list-container {
-    display: flex;
-    flex-grow: 1;
-    overflow: hidden; /* Prevents internal content from spilling over */
-  }
-  
-  .prompts-list {
-    width: 70%;
-    overflow-y: auto; /* Adds scrollbar to the prompt list */
-    margin-right: 10px; /* Space between list and actions */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  
-  .prompt-item {
-    background: #adadad;
-    padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  .prompts-page-actions {
-    width: 30%;
-    align-self: flex-start; /* Aligns the button with the top of the list */
-  }
-  
-  .create-prompt-link {
-    width: 200px;  /* Fixed width */
-    height: 50px;  /* Fixed height */
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    text-align: center;
-  }
-  .prompt-actions {
-    display: flex;
-    justify-content: flex-start; /* Aligns the buttons to the left */
-    gap: 10px; /* Ensures there is space between the buttons */
-  }
-  
-  .prompt-view-link, .prompt-edit-link {
-    padding: 5px 10px; /* Adds padding around the text for better clickability */
-    background-color: #d8d5d5; /* Adds a background color for visibility */
-    border-radius: 5px; /* Rounds the corners of the buttons */
-    text-decoration: none; /* Removes underline from links */
-    color: #0054ae; /* Sets the text color */
-    margin-right: 10px; /* Adds right margin to the first link */
-  }
-  
-  .prompt-edit-link {
-    margin-right: 0; /* Removes the margin on the right for the last link if there are no elements after it */
-  }
-  
+}

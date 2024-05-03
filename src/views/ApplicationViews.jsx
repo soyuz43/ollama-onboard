@@ -12,6 +12,7 @@ import { PromptView } from '../pages/prompts/PromptView';
 import { ConfirmationPage } from '../components/ConfirmationPage';
 import { ChatPage } from '../pages/chat/ChatPage';
 import { ModelList }  from '../pages/chat/ModelList';
+import { PromptActionsPage } from '../pages/prompts/PromptActions';
 
 export const AppView = () => {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -25,13 +26,14 @@ export const AppView = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/*" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage currentUserId={currentUserId} />} />
-        <Route path="/prompts" element={<PromptsPage currentUser={currentUserId} />} />
+        <Route path="/prompts" element={<PromptsPage showActions={true} currentUser={currentUserId} />} />
+        <Route path="/prompt-actions/:id" element={<PromptActionsPage />} />
         <Route path="/prompt/:id" element={<PromptView />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/edit-prompt/:id" element={<EditPage currentUserId={currentUserId} />} />
-        <Route path="/chat" element={<ChatPage />} />
+        <Route path="/chat" element={<ChatPage currentUser={currentUserId} />} />
         <Route path="/models" element={<ModelList />} />
         <Route path="/create-prompt" element={<CreatePromptPage currentUser={currentUserId} />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />

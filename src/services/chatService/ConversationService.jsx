@@ -1,10 +1,16 @@
 // src/services/conversationService.js 
-const BASE_URL = 'http://localhost:8088'; // Set the base URL for the API
 
-// Function to post a new conversation to the database
+
+const BASE_URL = 'http://localhost:8088'; // Base URL for your API
+
+/**
+ * Posts a conversation object to the backend.
+ * @param {Object} conversationData - The conversation object to be saved.
+ * @returns {Promise<Object>} The saved conversation data from the backend.
+ */
 export const postConversation = async (conversationData) => {
     try {
-        const response = await fetch(`${BASE_URL}/conversations`, { // Adjust the endpoint as necessary
+        const response = await fetch(`${BASE_URL}/conversations`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -14,9 +20,10 @@ export const postConversation = async (conversationData) => {
         if (!response.ok) {
             throw new Error('Failed to post conversation');
         }
-        return await response.json(); // Optionally return the newly created conversation object from the backend
+        const data = await response.json();
+        return data; // Returning the conversation data might include an ID or other metadata.
     } catch (error) {
-        console.error('Failed to post conversation', error);
-        throw error; // Re-throw to handle it further up in your component or in error handling logic
+        console.error('Error posting conversation:', error);
+        throw error;
     }
 };
