@@ -1,108 +1,112 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../pageStyles/ChatPage.css";
+import { fetchResponse } from "../../services/chatService/OllamaAPIService.jsx"; 
 
 export const ChatPage = () => {
   const [messages, setMessages] = useState([]); // Stores all chat messages
   const [userInput, setUserInput] = useState(""); // Tracks user's text input
-  const [isLoading, setIsLoading] = useState(false); // Indicates loading status
-  const [inputKey, setInputKey] = useState(0); // Key for forcing re-renders
+  const [isLoading, setIsLoading] = useState(false); // Indicates loading status when fetching the assistant's response
+  
+  const messagesEndRef = useRef(null); // Reference to the end of the messages container to manage auto-scrolling
+  const ongoingAssistantMessage = useRef(""); // Use useRef to handle ongoing assistant messages without causing re-renders
 
-  const latestMessages = useRef(null); // Latest state of messages for reference
-  const ongoingAssistantMessage = useRef(""); // Stores ongoing messages from the assistant
-  const textAreaRefs = useRef([]); // References to all text area elements
-  const messagesEndRef = useRef(null); // Reference to the end of the messages container
-
-  useEffect(() => {
-    latestMessages.current = messages;
-  }, [messages]);
-
+  // Effect to keep the chat scrolled to the bottom as new messages appear or the window resizes
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
+  // Auto-scroll function to maintain scroll position at the bottom of the chat
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
-      const { scrollHeight, clientHeight, scrollTop } = messagesEndRef.current;
-      if (scrollHeight - scrollTop === clientHeight) {
-        messagesEndRef.current.scrollTop = scrollHeight;
-      }
+      // Scrolling the messages wrapper
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     }
+  
+    // Additionally, scroll each textarea to the bottom if needed
+    const textareas = document.querySelectorAll('.message textarea');
+    textareas.forEach(textarea => {
+      textarea.scrollTop = textarea.scrollHeight;
+    });
   };
 
+  // Handles input field changes
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
 
-  const handleFormSubmit = (event) => {
+  // Handles form submission
+
+
+  // Function to post message to the server and handle streaming response
+  const updateMessages = (jsonObj) => {
+    ongoingAssistantMessage.current += jsonObj.message.content;
+    setMessages((current) => {
+      const updated = [...current];
+      updated[updated.length - 1] = {
+        role: "assistant",
+        content: ongoingAssistantMessage.current,
+      };
+      return updated;
+    });
+  };
+
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
     if (userInput.trim()) {
       const newMessage = { role: "user", content: userInput };
-      postMessage(newMessage);
+      setMessages((msgs) => [...msgs, newMessage]); // Add user message to the chat
       setUserInput(""); // Clear the input field
-    }
-  };
-
-  const postMessage = async (message) => {
-    const updatedMessages = [...latestMessages.current, message]; // Update the current list of messages & updates state so UI reflects the latest chat history.
-    setMessages(updatedMessages);
-
-    if (message.role === "user") {
-      setIsLoading(true); // Sets a loading state to true to indicate an ongoing process (useful for showing a loading indicator in the UI)
-      try {
-        const response = await fetch("http://localhost:11434/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            model: "dolphin-phi:2.7b-v2.6-q6_K",
-            messages: updatedMessages,
-            stream: true,
-          }),
-        });
-
-        const reader = response.body.getReader(); // Initiating Stream Reading
-        let completeMessage = ""; // Container to build the complete JSON incrementally
-
-        let result = await reader.read();
-        while (!result.done) {
-          const chunk = new TextDecoder("utf-8").decode(result.value);
-          completeMessage += chunk;
-          try {
-            let boundary = completeMessage.lastIndexOf("\n"); // Identify the Last New Line Character
+  
+      setIsLoading(true);
+      const reader = await fetchResponse(newMessage);
+      if (reader) {
+        let completeMessage = "";
+        const processChunk = async () => {
+          const result = await reader.read();
+          if (!result.done) {
+            const chunk = new TextDecoder("utf-8").decode(result.value);
+            completeMessage += chunk;
+            let boundary = completeMessage.lastIndexOf("\n");
             if (boundary !== -1) {
-              let completeData = completeMessage.substring(0, boundary); // Extract the Complete Data Up to the Boundary
-              completeMessage = completeMessage.substring(boundary + 1); // Update completeMessage to Hold Incomplete Data
-              let jsonMessages = completeData.split("\n").filter(Boolean); // Split and Filter the Complete Data into Messages
+              let completeData = completeMessage.substring(0, boundary);
+              completeMessage = completeMessage.substring(boundary + 1);
+              let jsonMessages = completeData.split("\n").filter(Boolean);
               jsonMessages.forEach((jsonMsg) => {
                 const jsonObj = JSON.parse(jsonMsg);
                 if (jsonObj.message && jsonObj.message.content) {
-                  ongoingAssistantMessage.current += jsonObj.message.content; // Checks if the parsed object has a message content, and if so, appends it to the rest of the message
+                  ongoingAssistantMessage.current += jsonObj.message.content;
+                  // Update the last assistant message in the list without creating a new one
                   setMessages((current) => {
-                    const updated = [...current];
-                    updated[updated.length - 1] = {
-                      role: "assistant",
-                      content: ongoingAssistantMessage.current,
-                    };
+                    let updated = [...current];
+                    if (updated.length > 0 && updated[updated.length - 1].role === 'assistant') {
+                      updated[updated.length - 1].content = ongoingAssistantMessage.current;
+                    } else {
+                      // In case the last message is not an assistant message (should not happen in this flow)
+                      updated.push({
+                        role: "assistant",
+                        content: ongoingAssistantMessage.current
+                      });
+                    }
                     return updated;
                   });
                 }
               });
             }
-          } catch (e) {
-            console.error("Error parsing JSON:", e);
+            processChunk(); // Continue processing next chunk
+          } else {
+            setIsLoading(false);
+            ongoingAssistantMessage.current = ""; // Reset after all data is processed
           }
-          result = await reader.read();
-        }
-        ongoingAssistantMessage.current = ""; // Resetting the Ongoing Message and Loading State
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error in fetching response:", error);
-        setIsLoading(false);
-        ongoingAssistantMessage.current = "";
+        };
+        processChunk();
       }
     }
   };
+  
+  
+  
 
-  return (
+  return (<>
     <div className="chat-container">
       <div className="messages-wrapper">
         <div
@@ -117,26 +121,15 @@ export const ChatPage = () => {
                 readOnly
                 value={msg.content}
                 rows={1}
-                style={{
-                  height: `${msg.content.split("\n").length * 20}px`,
-                }}
+                style={{ height: `${msg.content.split("\n").length * 40}px` }}
               />
             </div>
           ))}
         </div>
       </div>
-      <form
-        onSubmit={handleFormSubmit}
-        className="message-input"
-        style={{
-          position: "fixed",
-          bottom: 0,
-          width: "100%",
-          padding: "20px",
-          boxSizing: "border-box",
-          backgroundColor: "#fff",
-        }}
-      >
+    </div>
+      <div>
+      <form onSubmit={handleFormSubmit} className="message-input">
         <input
           type="text"
           value={userInput}
@@ -150,8 +143,8 @@ export const ChatPage = () => {
       </form>
       {isLoading && <p className="loading">Loading...</p>}
     </div>
+    </>
   );
 };
 
 export default ChatPage;
-
