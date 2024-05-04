@@ -3,7 +3,7 @@
 /* General container styling for the sidebar */
 .prompts-page-container {
   background-color: #f7f7f7;  /* Light gray background to differentiate the sidebar */
-  width: 700px;               /* Set a fixed width for the sidebar */
+  width: 100%;               /* Set a fixed width for the sidebar */
   height: 100vh;              /* Sidebar height to fill the vertical space */
   overflow-y: auto;           /* Allow scrolling within the sidebar */
   border-right: 1px solid #ccc; /* Subtle border to separate from the chat container */

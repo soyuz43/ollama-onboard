@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { getAllPrompts } from '../../services/promptService';
 import { getAllCategories } from '../../services/categoryService';
 import { PromptActionsPage } from './PromptActions';
 import '../pageStyles/PromptsPage.css';
 
-export const PromptsPage = ({ currentUser, showActions = true }) => {
+export const PromptsPage = ({ currentUser, showActions = true, onPastePrompt, showCustomActions }) => {
   const [prompts, setPrompts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -50,7 +49,6 @@ export const PromptsPage = ({ currentUser, showActions = true }) => {
         <div className="prompts-controls">
           <label className="prompts-show-toggle">
             <input type="checkbox" onChange={handleMyPromptsChange} />
-            
           </label>
           <select
             className="prompts-category-filter"
@@ -79,6 +77,11 @@ export const PromptsPage = ({ currentUser, showActions = true }) => {
           <div key={prompt.id} className="prompt-item">
             <h2 className="prompt-title">{prompt.title}</h2>
             <p className="prompt-content">{prompt.content}</p>
+            {/* Render custom actions if showCustomActions prop is true */}
+            {showCustomActions && (
+              <button onClick={() => onPastePrompt(prompt.content)}>Paste</button>
+            )}
+            {/* Render default actions if showActions prop is true */}
             {showActions && <PromptActionsPage currentUser={currentUser} prompt={prompt} showCreateLink={false} />}
           </div>
         ))}

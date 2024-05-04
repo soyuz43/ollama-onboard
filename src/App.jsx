@@ -11,7 +11,7 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/*" element={<Layout />}>
+        <Route path="/" element={<Layout />}>
           {/* Index route directly rendering AppView */}
           <Route index element={<Authorized><AppView /></Authorized>} />
 
@@ -20,7 +20,7 @@ export const App = () => {
           <Route path="register" element={<Register />} />
 
           {/* A catch-all route within the authorized area, typically redirects or handles 404s */}
-          <Route path="*" element={<Authorized><AppView /></Authorized>} />
+          <Route path="/*" element={<Authorized><AppView /></Authorized>} />
         </Route>
       </Routes>
     </BrowserRouter>

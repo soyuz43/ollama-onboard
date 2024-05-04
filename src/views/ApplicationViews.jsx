@@ -26,7 +26,7 @@ export const AppView = () => {
   return (
     <>
       <Routes>
-        <Route path="/*" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/profile" element={<ProfilePage currentUserId={currentUserId} />} />
         <Route path="/prompts" element={<PromptsPage showActions={true} currentUser={currentUserId} />} />
         <Route path="/prompt-actions/:id" element={<PromptActionsPage />} />

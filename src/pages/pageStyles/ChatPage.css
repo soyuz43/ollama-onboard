@@ -1,137 +1,128 @@
-/* ChatPage.css */
+/* General styles to reset margins and set the font */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Prevents scrolling on the body */
+}
 
-/* General container for chat and sidebar */
+/* Main container styling to handle flex layout */
 .chat-and-sidebar {
   display: flex;
-  align-items: flex-start;
-  height: 100vh;
-  width: 100%;
+  flex-direction: column;
+  height: 100%;
 }
-
-/* Container for chat interactions */
+.chat-canvas {
+  flex-grow: 1;
+  display: flex;
+  position: relative; /* Ensures the canvas fills all space above the input form */
+}
+/* Chat container that holds messages and sidebar */
 .chat-container {
-  flex-grow: 1; /* Allows the chat container to fill the space left by the sidebar */
+  flex-grow: 1;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #ccc; /* Adds a subtle border between chat and sidebar */
+  position: absolute;
+  bottom: 0; /* Anchors the chat container to the bottom */
+  top: 0; /* Ensures it takes full width */
 }
 
-/* Sidebar styles */
-.sidebar {
-  width: 250px; /* Adjust the width as needed */
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  float: left; /* Float the sidebar to the left */
-}
-
-
-/* Container for actual prompt listings */
-.prompts-container {
-  overflow-y: auto; /* Allows scrolling within the sidebar */
-  padding: 10px; /* Adds padding within the sidebar for spacing */
-}
-
-/* Button to toggle the visibility of the sidebar */
-.toggle-prompts {
-  padding: 10px 15px;
-  border: none;
-  background-color: #007BFF; /* Bootstrap primary blue */
-  color: white;
-  text-align: center;
-  cursor: pointer;
-  font-size: 16px;
-  border-top: 1px solid #ccc; /* Subtle border at the top of the button */
-}
-
-/* Styles for the buttons above the chat area */
-.button-container {
-  padding: 10px;
-  background-color: #ffffff; /* White background for the button area */
-  border-bottom: 1px solid #ccc; /* Separates buttons from chat */
-  display: flex;
-  justify-content: space-between; /* Spreads buttons evenly */
-  align-items: center;
-}
-
-/* Styling text inputs and other elements in the form */
-.message-input-container {
-  padding: 10px;
-  border-top: 1px solid #ccc; /* Separates input area from chat messages */
-  left: 0;
-  bottom: 0;
-  position: fixed;
-}
-
-/* Form input for typing messages */
-.message-input input {
-  width: 80%;
-  padding: 8px;
-  margin-right: 10px; /* Spacing between input and send button */
-  border: 1px solid #ccc;
-  border-radius: 4px; /* Rounded corners for the input */
-}
-
-/* Send button styling */
-.message-input button {
-  padding: 8px 15px;
-  background-color: #28a745; /* Bootstrap success green */
-  color: white;
-  border: none;
-  border-radius: 4px; /* Rounded corners for the button */
-  cursor: pointer;
-}
-
-/* Message wrapper within the chat container */
+/* Messages wrapper that allows for scrolling */
 .messages-wrapper {
-  height: 400px;
-  overflow-y: auto; /* Allows scrolling within the message area */
+  flex-grow: 1;
+  overflow-y: auto; /* Only the message area is scrollable */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers messages in the middle of the chat window */
 }
 
-/* Individual message styling */
-.message {
-  margin-bottom: 10px;
-  background-color: #f4f4f4;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* Messages container styles */
-.messages-container {
-  width: calc(100% - 270px); /* Calculate width to account for sidebar and add some space */
-  height: calc(100vh - 100px); /* Set fixed height */
-  overflow-y: auto; /* Add vertical scroll if content overflows */
-  float: left; /* Float the messages container to the left */
-  padding: 10px;
-}
-/* Textarea within messages for displaying text */
-.message textarea {
+/* Ensuring messages start from the bottom */
+.messages {
   width: 100%;
-  border: none;
-  resize: none; /* Disables resizing of the textarea */
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  margin-top: auto; /* Pushes the messages to start from the bottom */
 }
 
-/* Loading text styling */
-.loading {
-  text-align: center;
-  color: #666; /* Medium grey color for loading text */
+/* Individual message containers */
+.message-container {
+  width: 85%; /* Sets the width of message containers */
+  display: flex;
+  flex-direction: column; /* Stacks user and assistant messages vertically */
+  margin-bottom: 10px;
+  /* margin: 200px 0; Space between message groups */
 }
 
-/* Ensures text areas do not outline on focus, maintaining the UI's cleanliness */
-textarea:focus {
-  outline: none;
+/* Message styling */
+.message {
+  background-color: #f0f0f0; /* Light gray background, similar to a textarea */
+  border: 1px solid #ccc; /* Border to resemble a textarea */
+  padding: 8px; /* Padding inside the message box */
+  resize: vertical; /* Allows resizing vertically */
+  overflow-y: auto; /* Allows internal scrolling if text is too long */
+  min-height: 40px; /* Minimum height to resemble a textarea */
+  
 }
 
-/* Main content styles */
-.main-content {
-  margin-left: 270px; /* Account for sidebar width and add some space */
-  padding: 20px;
+/* User message styling */
+.user .message-content {
+  color: blue; /* Blue text for user */
+  text-align: left; /* Aligns text to the left */
 }
-.footer {
-  background-color: #333;
-  color: #fff;
+
+/* Assistant message styling */
+.assistant .message-content {
+  color: green; /* Green text for assistant */
+  text-align: left; /* Aligns text to the left */
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 0; /* Initially hidden */
+  overflow: hidden;
+  transition: width 0.3s ease;
+}
+
+/* Show prompts sidebar when activated */
+.show-prompts .sidebar {
+  width: 50%; /* Takes up half of the screen width when active */
+}
+
+.show-prompts .chat-container {
+  width: 50%; /* Reduces the chat container width when sidebar is visible */
+}
+
+/* Input form container styling */
+.input-form-container {
+  height: 15%; /* Takes up 15% of the height at the bottom */
+  width: 100%;
+  background: #ddd; /* Light background for the input area */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* Fixed at the bottom */
+  bottom: 0;
+}
+
+/* Styling for controls and input area within the form */
+.controls-container, .message-input {
+  width: 100%;
   padding: 10px;
-  clear: both; /* Clear floats */
-  text-align: center;
+}
+
+textarea, input[type="text"], button {
+  margin: 5px;
+  padding: 8px;
+}
+
+button.toggle-prompts {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
