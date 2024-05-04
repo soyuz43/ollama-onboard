@@ -1,0 +1,30 @@
+.sidebar-container {
+    position: fixed;
+    left: -100%; /* Start off-screen */
+    top: 0;
+    width: 250px; /* Adjust width as needed */
+    height: 100vh; /* Full-screen height */
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    transition: left 0.3s ease-in-out;
+    z-index: 1000; /* Ensure it's above other content */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar-container.show {
+    left: 0; /* Slide in */
+  }
+  
+  .prompts-container {
+    overflow-y: auto; /* Allows scrolling within the sidebar */
+    flex-grow: 1;
+  }
+  
+  .toggle-button {
+    align-self: center;
+    margin: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  

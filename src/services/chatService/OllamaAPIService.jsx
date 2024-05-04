@@ -54,4 +54,34 @@ export const fetchAvailableModels = async () => {
 // ! ---
 
 
+export async function fetchChatResponse(message) {
+  try {
+      const response = await fetchResponse(message); // Assuming fetchResponse returns a response stream
+      if (response) {
+          let completeMessage = '';
+          const reader = response.getReader();
+          return new ReadableStream({
+              async start(controller) {
+                  while (true) {
+                      const { done, value } = await reader.read();
+                      if (done) break;
+                      completeMessage += new TextDecoder('utf-8').decode(value);
+                      let boundary = completeMessage.lastIndexOf("\n");
+                      if (boundary !== -1) {
+                          let completeData = completeMessage.substring(0, boundary);
+                          completeMessage = completeMessage.substring(boundary + 1);
+                          controller.enqueue(completeData.split("\n").filter(Boolean).map(JSON.parse));
+                      }
+                  }
+                  controller.close();
+                  reader.releaseLock();
+              }
+          });
+      }
+  } catch (error) {
+      console.error("Failed to fetch or read response:", error);
+      throw error; // Rethrowing the error so that it can be caught and handled in the component.
+  }
+}
+
 

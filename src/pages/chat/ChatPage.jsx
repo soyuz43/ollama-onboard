@@ -12,7 +12,7 @@ export const ChatPage = ({ currentUser }) => { // Ensure that currentUser is des
   const [isOneTimeChat, setIsOneTimeChat] = useState(true);
   const [showPrompts, setShowPrompts] = useState(false);
   const [conversationSaved, setConversationSaved] = useState(false);
-
+  
   const [conversation, setConversation] = useState({
     id: null,
     name: "",
@@ -62,7 +62,11 @@ export const ChatPage = ({ currentUser }) => { // Ensure that currentUser is des
       }
     }
   };
-
+  const handleKeyDown = (event) => {
+    if (event.ctrlKey && event.key === 'Enter') {
+      handleFormSubmit(event);
+    }
+  };
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
   };
@@ -146,7 +150,7 @@ export const ChatPage = ({ currentUser }) => { // Ensure that currentUser is des
         {/* Main chat area that contains messages and ensures they start at the bottom */}
         <div className="chat-container">
           <div className="messages-wrapper">
-            <div className="messages" ref={messagesEndRef}>
+            <div className="messages">
               {messages.map((msg, index) => (
                 <div key={index} className="message-container">
                   <div className={`message ${msg.role}`}>
@@ -156,7 +160,8 @@ export const ChatPage = ({ currentUser }) => { // Ensure that currentUser is des
                   </div>
                 </div>
               ))}
-            </div>
+              <div ref={messagesEndRef} />
+            </div >
           </div>
         </div>
   
@@ -209,6 +214,7 @@ export const ChatPage = ({ currentUser }) => { // Ensure that currentUser is des
           <textarea
             value={userInput}
             onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
             placeholder="Type your message here..."
             disabled={isLoading}
           />
