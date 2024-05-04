@@ -1,116 +1,96 @@
-/* General styles to reset margins and set the font */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow: hidden;
   font-family: Arial, sans-serif;
-  overflow: hidden; /* Prevents scrolling on the body */
 }
 
-/* Main container styling to handle flex layout */
 .chat-and-sidebar {
   display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.chat-canvas {
-  flex-grow: 1;
-  display: flex;
-  position: relative; /* Ensures the canvas fills all space above the input form */
-}
-/* Chat container that holds messages and sidebar */
-.chat-container {
-  flex-grow: 1;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  bottom: 0; /* Anchors the chat container to the bottom */
-  top: 0; /* Ensures it takes full width */
+  height: 85%; /* Adjusted for chat and sidebar */
+  width: 100%; /* Full width of the viewport */
 }
 
-/* Messages wrapper that allows for scrolling */
+/* Full-height canvas for chat messages */
+.chat-canvas {
+  flex-grow: 1; /* Takes remaining space when sidebar is hidden */
+  display: flex;
+  transition: flex-grow 0.3s ease; /* Smooth resizing transition */
+}
+
+/* Chat container */
+.chat-container {
+  flex: 1; /* Take all available space when sidebar is hidden */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Ensures overflow content doesn't break layout */
+  position: relative; /* Relative positioning to allow absolute children positioning */
+  transition: flex 0.3s; /* Smooth transition for resizing */
+}
+
+/* Messages wrapper */
 .messages-wrapper {
   flex-grow: 1;
-  overflow-y: auto; /* Only the message area is scrollable */
-  padding: 10px;
+  overflow-y: auto; /* Allow vertical scrolling */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centers messages in the middle of the chat window */
+  align-items: center;
 }
 
-/* Ensuring messages start from the bottom */
 .messages {
   width: 100%;
-  display: flex;
   flex-direction: column-reverse;
-  align-items: flex-start;
-  margin-top: auto; /* Pushes the messages to start from the bottom */
-}
-
-/* Individual message containers */
-.message-container {
-  width: 85%; /* Sets the width of message containers */
   display: flex;
-  flex-direction: column; /* Stacks user and assistant messages vertically */
+  align-self: flex-start; /* Align messages to start of the flex container */
+}
+
+.message-container {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
-  /* margin: 200px 0; Space between message groups */
 }
 
-/* Message styling */
 .message {
-  background-color: #f0f0f0; /* Light gray background, similar to a textarea */
-  border: 1px solid #ccc; /* Border to resemble a textarea */
-  padding: 8px; /* Padding inside the message box */
-  resize: vertical; /* Allows resizing vertically */
-  overflow-y: auto; /* Allows internal scrolling if text is too long */
-  min-height: 40px; /* Minimum height to resemble a textarea */
-  
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px;
+  resize: vertical;
+  overflow: auto;
+  min-height: 40px;
 }
 
-/* User message styling */
-.user .message-content {
-  color: blue; /* Blue text for user */
-  text-align: left; /* Aligns text to the left */
-}
-
-/* Assistant message styling */
-.assistant .message-content {
-  color: green; /* Green text for assistant */
-  text-align: left; /* Aligns text to the left */
-}
-
-/* Sidebar styling */
+/* Sidebar styling for prompts */
 .sidebar {
   width: 0; /* Initially hidden */
-  overflow: hidden;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease; /* Smooth width transition */
+  overflow: hidden; /* Hide overflow */
 }
 
-/* Show prompts sidebar when activated */
+/* Responsive sidebar showing */
 .show-prompts .sidebar {
-  width: 50%; /* Takes up half of the screen width when active */
+  width: 50%; /* Half the width of the container */
 }
 
 .show-prompts .chat-container {
-  width: 50%; /* Reduces the chat container width when sidebar is visible */
+  flex: 0.5; /* Chat container takes half of the available space */
 }
 
-/* Input form container styling */
+/* Fixed input form at the bottom */
 .input-form-container {
-  height: 15%; /* Takes up 15% of the height at the bottom */
+  height: 15%;
   width: 100%;
-  background: #ddd; /* Light background for the input area */
+  position: fixed;
+  bottom: 0;
+  background: #ddd;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: fixed; /* Fixed at the bottom */
-  bottom: 0;
 }
 
-/* Styling for controls and input area within the form */
 .controls-container, .message-input {
   width: 100%;
   padding: 10px;

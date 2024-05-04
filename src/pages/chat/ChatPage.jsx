@@ -143,21 +143,19 @@ export const ChatPage = ({ currentUser }) => { // Ensure that currentUser is des
   return (
     <>
       <div className={`chat-and-sidebar ${showPrompts ? 'show-prompts' : ''}`}>
-        {/* Main chat canvas that contains messages and ensures they start at the bottom */}
-        <div className="chat-canvas">
-          <div className="chat-container">
-            <div className="messages-wrapper">
-              <div className="messages" ref={messagesEndRef}>
-                {messages.map((msg, index) => (
-                  <div key={index} className="message-container">
-                    <div className={`message ${msg.role}`}>
-                      <div className="message-content">
-                        {msg.role === "user" ? "User" : "Assistant"}: {msg.content}
-                      </div>
+        {/* Main chat area that contains messages and ensures they start at the bottom */}
+        <div className="chat-container">
+          <div className="messages-wrapper">
+            <div className="messages" ref={messagesEndRef}>
+              {messages.map((msg, index) => (
+                <div key={index} className="message-container">
+                  <div className={`message ${msg.role}`}>
+                    <div className="message-content">
+                      {msg.role === "user" ? "User" : "Assistant"}: {msg.content}
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -176,7 +174,7 @@ export const ChatPage = ({ currentUser }) => { // Ensure that currentUser is des
         </div>
       </div>
   
-      {/* Input-form container for message input and controls */}
+      {/* Input-form container for message input and controls, fixed at the bottom */}
       <div className="input-form-container">
         <div className="controls-container">
           {!conversationSaved && (
