@@ -26,9 +26,12 @@ export const ChatPage = ({ currentUser }) => {
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+        // Scroll to the top of the messages container
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollTop = 0; // Scrolls to the top
+        }
     }, [messages]);
-
+    
     const handleStoreConversation = async () => {
         if (conversationName.trim()) {
             const conversationData = {
