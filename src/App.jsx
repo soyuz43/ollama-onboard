@@ -20,7 +20,7 @@ export const App = () => {
           <Route path="register" element={<Register />} />
 
           {/* A catch-all route within the authorized area, typically redirects or handles 404s */}
-          <Route path="*" element={<Authorized><AppView /></Authorized>} />
+          <Route path="/*" element={<Authorized><AppView /></Authorized>} />
         </Route>
       </Routes>
     </BrowserRouter>

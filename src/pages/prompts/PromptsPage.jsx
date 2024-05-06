@@ -1,17 +1,15 @@
-// src/pages/PromptsPage.jsx
-
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { getAllPrompts } from '../../services/promptService';
 import { getAllCategories } from '../../services/categoryService';
+import { PromptActionsPage } from './PromptActions';
 import '../pageStyles/PromptsPage.css';
 
-
-export const PromptsPage = ({ currentUser }) => {
+export const PromptsPage = ({ currentUser, showActions = true, onPastePrompt, showCustomActions }) => {
   const [prompts, setPrompts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [showMyPrompts, setShowMyPrompts] = useState(false); // State to toggle showing my prompts
+  const [showMyPrompts, setShowMyPrompts] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,33 +26,29 @@ export const PromptsPage = ({ currentUser }) => {
     fetchData();
   }, []);
 
-  // Filter prompts by selected category and show my prompts if selected
+  const handleMyPromptsChange = () => {
+    setShowMyPrompts(!showMyPrompts);
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   const filteredPrompts = prompts.filter(prompt => {
     const isMyPrompt = showMyPrompts ? String(prompt.user_id) === String(currentUser) : true;
     const isCategoryMatch = selectedCategory === '' || prompt.category_id === parseInt(selectedCategory);
-    return isMyPrompt && isCategoryMatch;
+    const isSearchMatch = searchTerm === '' || prompt.title.toLowerCase().includes(searchTerm.toLowerCase()) || prompt.content.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    return isMyPrompt && isCategoryMatch && isSearchMatch;
   });
-
-  const handleMyPromptsChange = () => {
-    console.log('Before toggle:', showMyPrompts);
-    setShowMyPrompts(!showMyPrompts);
-    console.log('After toggle:', !showMyPrompts);
-    console.log('Current User ID:', currentUser);
-  };
-  
-  useEffect(() => {
-    console.log('Filtered Prompts:', filteredPrompts);
-  }, [filteredPrompts]);
-  
 
   return (
     <div className="prompts-page-container">
       <div className="prompts-header">
-        <h1 className="prompts-title">All Prompts</h1>
+        <h1 className="prompts-title">My Prompts</h1>
         <div className="prompts-controls">
           <label className="prompts-show-toggle">
             <input type="checkbox" onChange={handleMyPromptsChange} />
-            Show My Prompts
           </label>
           <select
             className="prompts-category-filter"
@@ -69,29 +63,29 @@ export const PromptsPage = ({ currentUser }) => {
               </option>
             ))}
           </select>
+          <input
+            type="text"
+            placeholder="Search prompts..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            className="search-input"
+          />
         </div>
       </div>
       <div className="prompts-list-container">
-        <div className="prompts-list">
-          {filteredPrompts.map(prompt => (
-            <div key={prompt.id} className="prompt-item">
-              <h2 className="prompt-title">{prompt.title}</h2>
-              <p className="prompt-content">{prompt.content}</p>
-              <div className="prompt-actions">
-                <Link to={`/prompt/${prompt.id}`} className="prompt-view-link">View Prompt</Link>
-                {prompt.user_id === currentUser && (
-                  <Link to={`/edit-prompt/${prompt.id}`} className="prompt-edit-link">Edit Prompt</Link>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="prompts-page-actions">
-          <Link to="/create-prompt" className="create-prompt-link">Create New Prompt</Link>
-        </div>
+        {filteredPrompts.map(prompt => (
+          <div key={prompt.id} className="prompt-item">
+            <h2 className="prompt-title">{prompt.title}</h2>
+            <p className="prompt-content">{prompt.content}</p>
+            {/* Render custom actions if showCustomActions prop is true */}
+            {showCustomActions && (
+              <button onClick={() => onPastePrompt(prompt.content)}>Paste</button>
+            )}
+            {/* Render default actions if showActions prop is true */}
+            {showActions && <PromptActionsPage currentUser={currentUser} prompt={prompt} showCreateLink={false} />}
+          </div>
+        ))}
       </div>
     </div>
   );
-  
-  
-} 
+};
