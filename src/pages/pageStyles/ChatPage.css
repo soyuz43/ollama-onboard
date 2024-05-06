@@ -1,36 +1,55 @@
 /* Styles for the chat and sidebar container */
-
-
 body {
   overflow-y: hidden; /* Disable browser window scrolling */
 }
 
 .chat-and-sidebar {
   display: flex;
-  flex-direction: row;
-  height: 75vh; /* 85% of the screen's height */
+  flex-direction: row-reverse; /* Sidebar on the right */
+  height: 75vh; /* 75% of the screen's height */
   overflow-y: auto; /* Enable vertical scrolling */
 }
 
 /* Styles for the main chat area */
 .chat-container {
-  flex: 1;
+  flex-grow: 1; /* Grow to use available space */
+  display: flex;
+  flex-direction: column-reverse; /* Reverse the order of the flex items */
   overflow-y: auto; /* Enable vertical scrolling */
   padding: 1rem;
-  justify-content: flex-end; 
-  overflow-y: auto;
+  transition: flex-grow 0.3s ease; /* Smooth transition for resizing */
+}
+
+/* Styles for the sidebar container */
+.sidebar {
+  width: 50%; /* Set width to 50% of the container */
+  flex-shrink: 0; /* Prevent flexbox from shrinking it */
+  overflow-x: overlay; /* Overlay the scrollbar */
+  transition: width 0.3s ease; /* Smooth transition for resizing */
+}
+
+/* Modifier class for when sidebar is hidden */
+.chat-and-sidebar.no-sidebar .chat-container {
+  flex-grow: 0; /* Do not grow, retain initial size */
+  width: 100%; /* Take full width when sidebar is hidden */
+}
+
+.chat-and-sidebar.no-sidebar .sidebar {
+  width: 0; /* Hide sidebar */
 }
 
 .messages-wrapper {
   display: flex;
+  flex-direction: column-reverse; /* Start from the bottom */
+  height: 100%;
 }
 
 .messages {
   display: flex;
-  padding: 1rem;
+  flex-direction: column-reverse; /* Reverse the message order */
   overflow-y: auto; /* Enable vertical scrolling */
+  padding: 1rem;
   height: 100%; /* Take up full height */
-  flex-direction: column; /* Reverse the message order */
 }
 
 .message-container {
@@ -56,34 +75,13 @@ body {
   background-color: #f2f2f2; /* Light gray background for assistant messages */
 }
 
-/* Styles for the sidebar container */
-.sidebar {
-  width: var(--sidebar-width); /* Dynamically set width */
-  flex-shrink: 0; /* Prevent flexbox from shrinking it */
-  overflow-x: overlay;
-}
-.resize-handle {
-  width: 5px;
-  background-color: #ccc;
-  cursor: ew-resize; /* Cursor indicates resizable area */
-  height: 100%;
-  position: absolute;
-  right: 0; /* Position at the right edge of the sidebar */
-  top: 0;
-}
-
-
-.prompts-container {
-  padding: 1rem;
-}
-
 /* Styles for the input-form container */
 .input-form-container {
   height: 15vh; /* 15% of the screen's height */
   padding: 1rem;
   background-color: #f7f7f7; /* Light gray background */
   border-top: 1px solid #ccc; /* Gray border */
-  position: relative; /* Position the "Show Prompts" button absolutely */
+  position: relative; /* Position for absolute children */
   margin-bottom: 1rem;
 }
 
@@ -103,11 +101,12 @@ body {
 .message-input {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .message-input textarea {
   padding: 1rem;
-  resize: vertical;
+  resize: vertical; /* Allow vertical resizing */
 }
 
 .message-input button[type="submit"] {
