@@ -57,3 +57,26 @@ const postMessage = async (message) => {
       }
     }
   };
+
+
+
+
+
+  const handleStoreConversation = async () => {
+    if (conversationName.trim()) {
+        const conversationData = {
+            name: conversationName,
+            model: currentUser.model,
+            lastUpdated: new Date(),
+            context: {},
+        };
+
+        try {
+            const savedConversation = await postConversation(conversationData);
+            console.log("Conversation saved successfully:", savedConversation);
+            setConversationSaved(true);
+        } catch (error) {
+            console.error("Failed to save conversation:", error);
+        }
+    }
+};

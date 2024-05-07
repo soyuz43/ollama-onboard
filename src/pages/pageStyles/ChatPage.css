@@ -17,7 +17,7 @@ body {
   flex-direction: column-reverse; /* Reverse the order of the flex items */
   overflow-y: auto; /* Enable vertical scrolling */
   padding: 1rem;
-  transition: flex-grow 0.3s ease; /* Smooth transition for resizing */
+  transition: flex-grow 0.1s ease; /* Smooth transition for resizing */
 }
 
 /* Styles for the sidebar container */
@@ -25,7 +25,7 @@ body {
   width: 50%; /* Set width to 50% of the container */
   flex-shrink: 0; /* Prevent flexbox from shrinking it */
   overflow-x: overlay; /* Overlay the scrollbar */
-  transition: width 0.3s ease; /* Smooth transition for resizing */
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1) /* Smooth transition for resizing */
 }
 
 /* Modifier class for when sidebar is hidden */
@@ -126,4 +126,17 @@ body {
 .loading {
   font-size: 0.8rem;
   color: #666; /* Dark gray text */
+}
+.details-button {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.message-details {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
 }
