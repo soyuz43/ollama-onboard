@@ -1,3 +1,5 @@
+// src/pages/prompts/PromptsPage.jsx
+
 import React, { useState, useEffect } from 'react';
 import { getAllPrompts } from '../../services/promptService';
 import { getAllCategories } from '../../services/categoryService';
@@ -37,7 +39,7 @@ export const PromptsPage = ({ currentUser, showActions = true, onPastePrompt, sh
   const filteredPrompts = prompts.filter(prompt => {
     const isMyPrompt = showMyPrompts ? String(prompt.user_id) === String(currentUser) : true;
     const isCategoryMatch = selectedCategory === '' || prompt.category_id === parseInt(selectedCategory);
-    const isSearchMatch = searchTerm === '' || prompt.title.toLowerCase().includes(searchTerm.toLowerCase()) || prompt.content.toLowerCase().includes(searchTerm.toLowerCase());
+    const isSearchMatch = searchTerm === '' || prompt.description.toLowerCase().includes(searchTerm.toLowerCase()) || prompt.content.toLowerCase().includes(searchTerm.toLowerCase());
     
     return isMyPrompt && isCategoryMatch && isSearchMatch;
   });
@@ -75,7 +77,7 @@ export const PromptsPage = ({ currentUser, showActions = true, onPastePrompt, sh
       <div className="prompts-list-container">
         {filteredPrompts.map(prompt => (
           <div key={prompt.id} className="prompt-item">
-            <h2 className="prompt-title">{prompt.title}</h2>
+            <h2 className="prompt-title">{prompt.description}</h2>
             <p className="prompt-content">{prompt.content}</p>
             {/* Render custom actions if showCustomActions prop is true */}
             {showCustomActions && (
