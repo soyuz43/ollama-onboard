@@ -1,29 +1,27 @@
 // hooks/useChat.js
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 const useChat = () => {
     const [messages, setMessages] = useState([]);
-    const ongoingAssistantMessage = useRef("");
 
     const addNewMessage = (message) => {
-        setMessages(prevMessages => [message, ...prevMessages]); // Append at the start to maintain order
+        setMessages(prevMessages => [message, ...prevMessages]);
     };
 
-    const updateAssistantMessage = (content) => {
-        // Update the last message if it's from the assistant, otherwise add a new one
+    const updateAssistantMessage = (message) => {
         setMessages(currentMessages => {
             let updatedMessages = [...currentMessages];
             if (updatedMessages.length > 0 && updatedMessages[0].role === "assistant") {
-                updatedMessages[0].content += content;
+                updatedMessages[0].content += message.content;
             } else {
-                updatedMessages.unshift({ role: "assistant", content });
+                updatedMessages.unshift({ role: "assistant", content: message.content, model: message.model });
             }
             return updatedMessages;
         });
     };
 
     const finalizeAssistantMessage = () => {
-        ongoingAssistantMessage.current = ""; // Reset the ongoing message
+        // Possibly handle any final cleanup or state updates here if needed
     };
 
     return {
@@ -35,4 +33,3 @@ const useChat = () => {
 };
 
 export default useChat;
-

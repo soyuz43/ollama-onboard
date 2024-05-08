@@ -7,7 +7,6 @@ export const Register = (props) => {
   const [customer, setCustomer] = useState({
     email: "",
     fullName: "",
-    isStaff: false,
   })
   let navigate = useNavigate()
 
