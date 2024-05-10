@@ -24,7 +24,18 @@ export const ChatPage = ({ currentUser }) => {
   ); // Could be initialized to a specific model
   const [models, setModels] = useState([]);
   const [showPrompts, setShowPrompts] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const messagesEndRef = useRef(null);
+  
+  
+  useEffect(() => {
+    // Placeholder for any initialization logic
+  }, []);
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
 
   useEffect(() => {
     fetchAvailableModels()
@@ -74,60 +85,65 @@ export const ChatPage = ({ currentUser }) => {
 
   return (
     <>
-      <div className={`chat-and-sidebar ${showPrompts ? "" : "no-sidebar"}`}>
-              <div
-                className="text-sanitizer-container"
-                style={{ width: "50%" }}
-              >
-                <TextSanitizer />
-              </div>
+      <button
+        onClick={toggleVisibility}
+        className="show-notepad-button"
+        style={{ writingMode: 'vertical-rl' }}
+      >
+        {isVisible ? 'Hide Notepad' : 'Show Notepad'}
+      </button>
+      <div className="chat-and-notepad">
+        {showPrompts && (
+          <div className="sidebar">
+            <PromptsPage
+              onPastePrompt={(promptText) =>
+                setUserInput((prevInput) => prevInput + promptText)
+              }
+              showActions={false}
+              showCustomActions={true}
+            />
+          </div>
+        )}
         <div className="chat-container">
           <MessageList messages={messages} messagesEndRef={messagesEndRef} />
         </div>
-        <div className="sidebar">
-          {showPrompts && (
-            <>
-              <PromptsPage
-                onPastePrompt={(promptText) =>
-                  setUserInput((prevInput) => prevInput + promptText)
-                }
-                showActions={false}
-                showCustomActions={true}
-              />
-            </>
-          )}
-        </div>
-      </div>
-      <div className="input-form-container">
-        <div className="controls-container">
-          <select
-            value={selectedModel}
-            onChange={(e) => setSelectedModel(e.target.value)}
+        {isVisible && (
+          <div className="text-sanitizer-container">
+            <TextSanitizer />
+          </div>
+        )}
+        <div className="input-form-container">
+          <div className="controls-container">
+            <select
+              value={selectedModel}
+              onChange={(e) => setSelectedModel(e.target.value)}
+            >
+              <option value="">Select a Model</option>
+              {models.map((model) => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
+            </select>
+          </div>
+          <MessageInputForm
+            userInput={userInput}
+            isLoading={isLoading}
+            handleInputChange={(e) => setUserInput(e.target.value)}
+            handleFormSubmit={handleFormSubmit}
+          />
+          {isLoading && <p className="loading">Loading...</p>}
+          <button
+            className="toggle-prompts"
+            onClick={() => setShowPrompts(!showPrompts)}
           >
-            <option value="">Select a Model</option>
-            {models.map((model) => (
-              <option key={model} value={model}>
-                {model}
-              </option>
-            ))}
-          </select>
+            {showPrompts ? "Hide Prompts" : "Show Prompts"}
+          </button>
         </div>
-        <MessageInputForm
-          userInput={userInput}
-          isLoading={isLoading}
-          handleInputChange={(e) => setUserInput(e.target.value)}
-          handleFormSubmit={handleFormSubmit}
-        />
-        {isLoading && <p className="loading">Loading...</p>}
-        <button
-          className="toggle-prompts"
-          onClick={() => setShowPrompts(!showPrompts)}
-        >
-          {showPrompts ? "Hide Prompts" : "Show Prompts"}
-        </button>
       </div>
     </>
   );
 };
+
 
 export default ChatPage;

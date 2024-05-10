@@ -104,7 +104,7 @@ const handleSubmit = async (e) => {
         >
           <option value="">Select a Category</option>
           {categories.map((category) => (
-            <option key={category.category_id} value={category.category_id}>
+            <option key={category.id} value={category.id}>
               {category.name}
             </option>
           ))}

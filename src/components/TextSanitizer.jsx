@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 export const TextSanitizer = () => {
     const [text, setText] = useState('');
+    const [isUpperCase, setIsUpperCase] = useState(false);
 
     const handleTextChange = (e) => {
         setText(e.target.value);
@@ -17,8 +18,17 @@ export const TextSanitizer = () => {
         setText(text.replace(/\s+/g, ' '));
     };
 
-    const capitalizeText = () => {
+    const titleCaseText = () => {
         setText(text.toLowerCase().replace(/(^\w|\s\w)/g, m => m.toUpperCase()));
+    };
+
+    const sentenceCaseText = () => {
+        setText(text.replace(/(^\s*\w|[\.\!\?]\s*\w)/g, m => m.toUpperCase()));
+    };
+
+    const toggleCaseText = () => {
+        setText(isUpperCase ? text.toLowerCase() : text.toUpperCase());
+        setIsUpperCase(!isUpperCase);
     };
 
     return (
@@ -28,15 +38,15 @@ export const TextSanitizer = () => {
                 onChange={handleTextChange}
                 placeholder="Enter text here..."
                 className="sanitizer-input"
-                style={{ width: '100%', minHeight: '150px' }}
+            
             ></textarea>
             <div className="buttons">
                 <button onClick={trimText}>Trim Edges</button>
                 <button onClick={removeExtraSpaces}>Remove Extra Spaces</button>
-                <button onClick={capitalizeText}>Capitalize</button>
+                <button onClick={titleCaseText}>Title Case</button>
+                <button onClick={sentenceCaseText}>Sentence Case</button>
+                <button onClick={toggleCaseText}>{isUpperCase ? 'Lower Case' : 'All Caps'}</button>
             </div>
         </div>
     );
 };
-
-
