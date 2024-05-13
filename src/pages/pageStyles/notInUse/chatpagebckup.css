@@ -1,0 +1,166 @@
+/* General styles and resets */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Main chat and sidebar layout */
+  .chat-and-notepad {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjust height to allow for input form height */
+    overflow: hidden;
+  }
+  
+  /* Chat area */
+  /* Default chat container when both sidebar and text sanitizer are hidden */
+  .chat-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 20px;
+    width: 100%; /* Default to full width */
+  }
+  
+  /* When sidebar is visible */
+  .chat-container.with-sidebar {
+    width: calc(100% - 35%); /* Adjust based on sidebar width */
+  }
+  
+  /* When text sanitizer is visible */
+  .chat-container.with-sanitizer {
+    width: calc(100% - 30%); /* Adjust based on text sanitizer width */
+  }
+  
+  /* When both are visible */
+  .chat-container.with-both {
+    width: calc(100% - 65%); /* Adjust if both are visible */
+  }
+  
+  .messages-wrapper {
+    overflow-y: auto;
+    flex-grow: 1; /* Allows it to take up all available space */
+    flex-direction: column;
+  }
+  
+  .message-container {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .message.user {
+    background-color: rgb(173, 230, 211);
+    align-self: flex-start;
+  }
+  
+  .message.assistant {
+    background-color: rgb(112, 149, 158);
+    align-self: flex-end;
+  }
+  
+  /* Sidebar for prompts */
+  /* Sidebar for prompts */
+  .sidebar {
+    position: fixed; /* Making sidebar fixed */
+    top: 80px; /* Start below the button, adjust this value based on button height */
+    width: 35%;
+    overflow-y: hidden;
+    border-left: 1px solid #ccc;
+    padding-top: 0px; /* No need for top padding anymore */
+    height: calc(100vh - 80px); /* Adjusting height to start below the button */
+    z-index: 10;
+  }
+  
+  .sidebar::after {
+    content: "";
+    display: block;
+    height: 0px; /* Height of the footer or bottom padding */
+  }
+  /* Input form container at the bottom */
+  .input-form-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .message-input {
+    display: flex;
+  }
+  
+  textarea {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #080077; /* Dark green, typical of the classic VIM color scheme */
+    color: white;
+    
+    cursor: pointer;
+    opacity: 0.8; /* 80% opacity */
+    transition: background-color 0.3s, opacity 0.3s; /* Smooth transition for hover effects */
+  }
+  
+  button:hover {
+    background-color: #050049; /* Lighter shade of green on hover */
+    opacity: 1; /* Full opacity on hover */
+  }
+  /* Show/hide buttons */
+  .show-notepad-button, .toggle-prompts {
+    position: fixed;
+    top: 40px;
+    z-index: 1001;
+  }
+  
+  .show-notepad-button {
+    right: 20px;
+  }
+  
+  .toggle-prompts {
+    left: 20px;
+  }
+  
+  /* Loading text style */
+  .loading {
+    text-align: center;
+    color: #666;
+  }
+  .text-sanitizer-container {
+    position: fixed;  /* or 'absolute', depending on your layout needs */
+    top: 80px;  /* Adjust based on actual top space needs, aligning with sidebar adjustments */
+    right: 0;  /* or according to its intended position */
+    width: 30%;  /* or match the width to your sidebar if it's meant to align with it */
+    height: calc(100vh - 80px);  /* This ensures it uses the available vertical space */
+  }
+  
+  /* Responsive behavior */
+  @media (max-width: 768px) {
+    .chat-and-notepad {
+      flex-direction: column;
+      height: calc(100vh - 60px); /* Adjust for mobile view */
+    }
+  
+    .sidebar, .text-sanitizer-container {
+      width: 100%;
+      height: auto;
+    }
+  
+    .chat-container {
+      width: 100%; /* Adjusts width to full when sidebar is stacked */
+    }
+  
+    .input-form-container {
+      position: fixed;
+    }
+  }
+  

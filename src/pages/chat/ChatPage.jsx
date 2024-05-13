@@ -1,3 +1,5 @@
+// src/pages/ChatPage.jsx
+
 import React, { useState, useEffect, useRef } from "react";
 import "../pageStyles/ChatPage.css";
 import {
@@ -88,7 +90,7 @@ export const ChatPage = ({ currentUser }) => {
       <button
         onClick={toggleVisibility}
         className="show-notepad-button"
-        style={{ writingMode: 'vertical-rl' }}
+        
       >
         {isVisible ? 'Hide Notepad' : 'Show Notepad'}
       </button>
@@ -104,7 +106,7 @@ export const ChatPage = ({ currentUser }) => {
             />
           </div>
         )}
-        <div className="chat-container">
+        <div className={`chat-container ${showPrompts ? 'with-sidebar' : ''} ${isVisible ? 'with-sanitizer' : ''}`}>
           <MessageList messages={messages} messagesEndRef={messagesEndRef} />
         </div>
         {isVisible && (
@@ -143,7 +145,5 @@ export const ChatPage = ({ currentUser }) => {
       </div>
     </>
   );
-};
-
-
-export default ChatPage;
+}
+  export default ChatPage;

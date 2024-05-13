@@ -38,11 +38,12 @@ export const TextSanitizer = () => {
                 onChange={handleTextChange}
                 placeholder="Enter text here..."
                 className="sanitizer-input"
+                style={{ minWidth: 400, minHeight: 300 }}
             
             ></textarea>
             <div className="buttons">
                 <button onClick={trimText}>Trim Edges</button>
-                <button onClick={removeExtraSpaces}>Remove Extra Spaces</button>
+                <button onClick={removeExtraSpaces}>Remove Whitespace</button>
                 <button onClick={titleCaseText}>Title Case</button>
                 <button onClick={sentenceCaseText}>Sentence Case</button>
                 <button onClick={toggleCaseText}>{isUpperCase ? 'Lower Case' : 'All Caps'}</button>

@@ -1,16 +1,18 @@
 /* master.css */
-
 /* Import the font file from the fonts directory */
 @font-face {
-  font-family: 'Iosevka Term Slab Font Mono';
-  src: url('../fonts/IosevkaTermSlab/Mono/IosevkaTermSlabNerdFontMono-LightOblique.ttf') format('truetype'); /* Adjust the path as needed */
+  font-family: 'HurmitNerdFontMono';
+  src: url('fonts/HurmitNerd/Mono/HurmitNerdFontMono-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* Set the default font family for the entire document */
 body {
-  font-family: 'Iosevka Term Slab Font Mono', monospace; /* Use the IosevkaTermSlab Font Mono or fallback to generic monospace */
-  padding-top: 60px; /* Adjust padding as needed */
+  font-family: 'HurmitNerdFontMono', monospace; /* Fallback to monospace in case the font doesn't load */
 }
+
+
 
 /* /*
 

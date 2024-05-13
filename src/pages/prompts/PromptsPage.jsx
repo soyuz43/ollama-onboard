@@ -21,6 +21,9 @@ export const PromptsPage = ({
   const [selectedSubtype, setSelectedSubtype] = useState("");
   const [showMyPrompts, setShowMyPrompts] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const [categoryDescription, setCategoryDescription] = useState("");
+  const [typeDescription, setTypeDescription] = useState("");
+  const [subtypeDescription, setSubtypeDescription] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,18 +49,27 @@ export const PromptsPage = ({
   };
 
   const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
+    const newCategoryId = e.target.value;
+    setSelectedCategory(newCategoryId);
     setSelectedType("");  // Reset type when category changes
     setSelectedSubtype(""); // Reset subtype when category changes
+    const category = categories.find(c => c.id.toString() === newCategoryId);
+    setCategoryDescription(category ? category.description : "");
   };
 
   const handleTypeChange = (e) => {
-    setSelectedType(e.target.value);
+    const newTypeId = e.target.value;
+    setSelectedType(newTypeId);
     setSelectedSubtype(""); // Reset subtype when type changes
+    const type = types.find(t => t.id.toString() === newTypeId);
+    setTypeDescription(type ? type.description : "");
   };
 
   const handleSubtypeChange = (e) => {
-    setSelectedSubtype(e.target.value);
+    const newSubtypeId = e.target.value;
+    setSelectedSubtype(newSubtypeId);
+    const subtype = subtypes.find(s => s.id.toString() === newSubtypeId);
+    setSubtypeDescription(subtype ? subtype.description : "");
   };
 
   const handleSearchChange = (event) => {
@@ -75,12 +87,12 @@ export const PromptsPage = ({
     const isSubtypeMatch = selectedSubtype === "" || (prompt.subtype_id && prompt.subtype_id === parseInt(selectedSubtype));
     const isSearchMatch =
       searchTerm === "" ||
-      prompt.descript.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      prompt.content.toLowerCase().includes(searchTerm.toLowerCase());
-
+      (prompt.descript && prompt.descript.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (prompt.content && prompt.content.toLowerCase().includes(searchTerm.toLowerCase()));
+  
     return isMyPrompt && isCategoryMatch && isTypeMatch && isSubtypeMatch && isSearchMatch;
   });
-
+  
   return (
     <div className="prompts-page-container">
       <div className="prompts-header">
@@ -88,6 +100,7 @@ export const PromptsPage = ({
         <div className="prompts-controls">
           <label className="prompts-show-toggle">
             <input type="checkbox" checked={showMyPrompts} onChange={handleMyPromptsChange} />
+            Show My Prompts
           </label>
           <select
             className="prompts-category-filter"
@@ -102,6 +115,7 @@ export const PromptsPage = ({
               </option>
             ))}
           </select>
+          <p>Description: {categoryDescription}</p>
           <select
             className="prompts-type-filter"
             value={selectedType}
@@ -115,6 +129,7 @@ export const PromptsPage = ({
               </option>
             ))}
           </select>
+          <p>Description: {typeDescription}</p>
           {selectedType === "3" && (
             <select
               className="prompts-subtype-filter"
@@ -130,6 +145,7 @@ export const PromptsPage = ({
               ))}
             </select>
           )}
+          {selectedType === "3" && <p>Description: {subtypeDescription}</p>}
           <input
             type="text"
             placeholder="Search prompts..."
