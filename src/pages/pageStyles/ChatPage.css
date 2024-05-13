@@ -1,9 +1,3 @@
-/* Define default widths as variables */
-:root {
-  --sidebar-width: 35%;  /* Width of the sidebar */
-  --sanitizer-width: 25%; /* Width of the text sanitizer */
-}
-
 /* General styles and resets */
 body, html {
   height: 100%;
@@ -15,79 +9,78 @@ body, html {
 /* Main chat and sidebar layout */
 .chat-and-notepad {
   display: flex;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 60px); /* Adjust height to allow for input form height */
   overflow: hidden;
-  position: relative;
 }
 
-/* Chat area - dynamically adjusts based on sidebar and text sanitizer visibility */
+/* Chat area */
+/* Default chat container when both sidebar and text sanitizer are hidden */
 .chat-container {
   flex-grow: 1;
+  margin-top: 80px;
   display: flex;
   flex-direction: column-reverse;
   padding: 20px;
-  width: 85%; /* Default width when nothing else is shown */
-  transition: width 0.3s ease; /* Smooth transition for width changes */
+  width: 100%; /* Default to full width */
 }
 
-/* Adjustments for sidebar/text sanitizer visibility */
+/* When sidebar is visible */
 .chat-container.with-sidebar {
-  width: calc(100% - var(--sidebar-width));
+  width: calc(100% - 35%); /* Adjust based on sidebar width */
 }
 
+/* When text sanitizer is visible */
 .chat-container.with-sanitizer {
-  width: calc(100% - var(--sanitizer-width));
+  width: calc(100% - 30%); /* Adjust based on text sanitizer width */
 }
 
-.chat-container.with-sidebar.with-sanitizer {
-  width: calc(100% - var(--sidebar-width) - var(--sanitizer-width));
+/* When both are visible */
+.chat-container.with-both {
+  width: calc(100% - 65%); /* Adjust if both are visible */
 }
 
 .messages-wrapper {
+  margin-bottom: 120px;
   overflow-y: auto;
-  flex-grow: 1;
+  display: flex;
+  flex-grow: 1; /* Allows it to take up all available space */
+  flex-direction: column-reverse;
 }
 
 .message-container {
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 0px;
   border-radius: 8px;
 }
 
 .message.user {
-  background-color: lightblue;
+  background-color: rgb(173, 230, 211);
   align-self: flex-start;
 }
 
 .message.assistant {
-  background-color: lightgray;
+  background-color: rgb(112, 149, 158);
   align-self: flex-end;
 }
 
 /* Sidebar for prompts */
+/* Sidebar for prompts */
 .sidebar {
-  width: var(--sidebar-width);
-  overflow-y: auto;
+  position: fixed; /* Making sidebar fixed */
+  top: 80px; /* Start below the button, adjust this value based on button height */
+  width: 35%;
+  overflow-y: hidden;
   border-left: 1px solid #ccc;
-  padding: 20px;
-  position: absolute;
-  top: 80px;
-  bottom: 60px;
-  left: 0;
+  padding-top: 0px; /* No need for top padding anymore */
+  height: calc(100vh - 80px); /* Adjusting height to start below the button */
+  z-index: 10;
 }
 
-/* Text Sanitizer container */
-.text-sanitizer-container {
-  width: var(--sanitizer-width);
-  padding: 20px;
-  border-right: 1px solid #ccc;
-  position: absolute;
-  top: 80px;
-  bottom: 60px;
-  right: 0;
-  overflow-y: auto;
+.sidebar::after {
+  content: "";
+  display: block;
+  height: 0px; /* Height of the footer or bottom padding */
 }
-
 /* Input form container at the bottom */
 .input-form-container {
   position: fixed;
@@ -113,23 +106,23 @@ textarea {
 button {
   padding: 10px 20px;
   border: none;
-  background-color: #080077;
+  background-color: #080077; /* Dark green, typical of the classic VIM color scheme */
   color: white;
+  
   cursor: pointer;
-  opacity: 0.8;
-  transition: background-color 0.3s, opacity 0.3s;
+  opacity: 0.8; /* 80% opacity */
+  transition: background-color 0.3s, opacity 0.3s; /* Smooth transition for hover effects */
 }
 
 button:hover {
-  background-color: #00bb00;
-  opacity: 1;
+  background-color: #050049; /* Lighter shade of green on hover */
+  opacity: 1; /* Full opacity on hover */
 }
-
 /* Show/hide buttons */
 .show-notepad-button, .toggle-prompts {
   position: fixed;
-  top: 30px;
-  z-index: 1000;
+  top: 40px;
+  z-index: 1001;
 }
 
 .show-notepad-button {
@@ -145,22 +138,28 @@ button:hover {
   text-align: center;
   color: #666;
 }
+.text-sanitizer-container {
+  position: fixed;  /* or 'absolute', depending on your layout needs */
+  top: 80px;  /* Adjust based on actual top space needs, aligning with sidebar adjustments */
+  right: 0;  /* or according to its intended position */
+  width: 30%;  /* or match the width to your sidebar if it's meant to align with it */
+  height: calc(100vh - 80px);  /* This ensures it uses the available vertical space */
+}
 
 /* Responsive behavior */
 @media (max-width: 768px) {
   .chat-and-notepad {
     flex-direction: column;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px); /* Adjust for mobile view */
   }
 
   .sidebar, .text-sanitizer-container {
     width: 100%;
-    top: 60px;
-    position: relative;
+    height: auto;
   }
 
   .chat-container {
-    width: 100%; /* Full width when stacked */
+    width: 100%; /* Adjusts width to full when sidebar is stacked */
   }
 
   .input-form-container {

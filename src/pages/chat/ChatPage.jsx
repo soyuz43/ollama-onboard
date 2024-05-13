@@ -106,7 +106,7 @@ export const ChatPage = ({ currentUser }) => {
             />
           </div>
         )}
-        <div className={`chat-container ${showPrompts ? 'with-sidebar' : ''} ${isVisible ? 'with-sanitizer' : ''}`}>
+        <div className={`chat-container`}>
           <MessageList messages={messages} messagesEndRef={messagesEndRef} />
         </div>
         {isVisible && (
