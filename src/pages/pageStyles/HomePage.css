@@ -1,35 +1,50 @@
-/* /src/pages/pageStyles/HomePage.css */
 .overall-homepage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    color: #333; /* Soft, dark gray for text */
-    background-color: #f4f4f9; /* Light grey background for a modern look */
-    min-height: 80vh; /* Full view height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .h1-homepage {
-  font-size: 2em; /* Larger font size for the main heading */
-  color: #333; /* Dark grey for text for readability */
-  margin-bottom: 20px; /* Space below the heading */
+  font-size: 36px;
+  font-weight: bold;
+  color: #080077; /* Dark green, typical of the classic VIM color scheme */
+  margin-bottom: 20px;
 }
 
 .content-homepage {
-  margin-bottom: 10px; /* Space between links */
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.content-homepage:last-child {
+  border-bottom: none;
 }
 
 .content-homepage a {
   text-decoration: none;
-  color: #007BFF; /* Bootstrap's default link color for consistency */
-  font-size: 1.2em;
-  padding: 8px 16px; /* Padding for better touch target */
-  border: 1px solid #007BFF; /* Border to enhance the button-like appearance */
-  border-radius: 5px; /* Rounded corners for a modern look */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  color: #337ab7; /* Blue color for links */
+  transition: color 0.3s;
 }
 
-.content-homepage a:hover, .content-homepage a:focus {
-  background-color: #007BFF; /* Blue background on hover/focus */
-  color: white; /* White text on hover/focus */
+.content-homepage a:hover {
+  color: #23527c; /* Darker blue on hover */
+}
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+  .overall-homepage {
+    padding: 20px;
+  }
+  .h1-homepage {
+    font-size: 24px;
+  }
+  .content-homepage {
+    margin-bottom: 10px;
+  }
 }

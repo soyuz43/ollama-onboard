@@ -1,0 +1,12 @@
+.toggle-button {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    writing-mode: vertical-rl;
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+}
