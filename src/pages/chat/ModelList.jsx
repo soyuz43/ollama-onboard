@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { fetchAvailableModels } from "../../services/chatService/OllamaAPIService.jsx";
-
-
+import './ModelList.css'; // Import the CSS file
 
 export const ModelList = () => {
     const [models, setModels] = useState([]);
@@ -22,9 +21,9 @@ export const ModelList = () => {
     };
 
     return (
-        <div>
+        <div className="topMargin">
             {models.map((model, index) => (
-                <div key={model.name}>
+                <div key={model.name} className="modelBox">
                     <h3>{model.name}</h3>
                     <p>Family: {model.details.family}</p>
                     <p>Parameter Size: {model.details.parameter_size}</p>

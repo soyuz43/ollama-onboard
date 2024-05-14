@@ -1,10 +1,18 @@
 // src/components/TextSanitizer.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const TextSanitizer = () => {
-    const [text, setText] = useState('');
+    // Initialize text from localStorage if available, otherwise default to ''
+    const [text, setText] = useState(() => {
+        return localStorage.getItem('textSanitizerData') || '';
+    });
     const [isUpperCase, setIsUpperCase] = useState(false);
+
+    // Effect to store text in localStorage when text changes
+    useEffect(() => {
+        localStorage.setItem('textSanitizerData', text);
+    }, [text]);
 
     const handleTextChange = (e) => {
         setText(e.target.value);

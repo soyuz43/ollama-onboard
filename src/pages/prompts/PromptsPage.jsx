@@ -96,7 +96,7 @@ export const PromptsPage = ({
   return (
     <div className="prompts-page-container">
       <div className="prompts-header">
-        <h1 className="prompts-title">My Prompts</h1>
+        <h1 className="prompts-title"></h1>
         <div className="prompts-controls">
           <label className="prompts-show-toggle">
             <input type="checkbox" checked={showMyPrompts} onChange={handleMyPromptsChange} />
