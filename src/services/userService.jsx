@@ -1,4 +1,4 @@
-releaseEvents// services/userService.js
+// services/userService.js
 
 const BASE_URL = 'http://localhost:8088';
 

@@ -1,0 +1,9 @@
+.topMargin {
+    margin-top: 70px;
+}
+
+.modelBox {
+    border: 2px solid orange;
+    padding: 10px;
+    margin-bottom: 10px; /* Adds space between model boxes */
+}

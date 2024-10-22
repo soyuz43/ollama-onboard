@@ -85,6 +85,14 @@ export const ChatPage = ({ currentUser }) => {
     }
   };
 
+ 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [messages]);
+
+
   return (
     <>
       <button
@@ -106,7 +114,7 @@ export const ChatPage = ({ currentUser }) => {
             />
           </div>
         )}
-        <div className={`chat-container`}>
+         <div className="chat-container" ref={messagesEndRef.parentNode}> {/* Ensure the container has a ref */}
           <MessageList messages={messages} messagesEndRef={messagesEndRef} />
         </div>
         {isVisible && (
@@ -145,5 +153,5 @@ export const ChatPage = ({ currentUser }) => {
       </div>
     </>
   );
-}
+};
   export default ChatPage;
